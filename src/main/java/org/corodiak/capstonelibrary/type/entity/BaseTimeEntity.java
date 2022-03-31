@@ -1,4 +1,4 @@
-package org.corodiak.capstonelibrary.entity;
+package org.corodiak.capstonelibrary.type.entity;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +10,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @MappedSuperclass
