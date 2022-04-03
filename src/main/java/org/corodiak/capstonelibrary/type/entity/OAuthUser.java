@@ -47,7 +47,7 @@ public class OAuthUser extends BaseTimeEntity {
 
 	@Enumerated(EnumType.STRING)
 	@Column
-	private OAuthProvider oAuthProvider;
+	private OAuthProvider oap;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_seq")
@@ -55,12 +55,12 @@ public class OAuthUser extends BaseTimeEntity {
 
 	@Builder
 	public OAuthUser(Long seq, String providerUserId, String email, String name,
-		OAuthProvider oAuthProvider, User user) {
+		OAuthProvider oap, User user) {
 		this.seq = seq;
 		this.providerUserId = providerUserId;
 		this.email = email;
 		this.name = name;
-		this.oAuthProvider = oAuthProvider;
+		this.oap = oap;
 		this.user = user;
 	}
 }
