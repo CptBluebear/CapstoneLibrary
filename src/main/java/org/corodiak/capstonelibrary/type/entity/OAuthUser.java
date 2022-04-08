@@ -30,13 +30,15 @@ public class OAuthUser extends BaseTimeEntity {
 
 	@Column(
 		unique = true,
-		nullable = false
+		nullable = false,
+		length = 100
 	)
 	private String providerUserId;
 
 	@Column(
 		unique = true,
-		nullable = false
+		nullable = false,
+		length = 100
 	)
 	private String email;
 
