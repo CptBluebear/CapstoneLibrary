@@ -46,6 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/info").hasAnyRole("USER", "ADMIN")
 			.anyRequest().permitAll();
 
+		http.csrf().disable();
+
 		http.addFilterBefore(tokenAuthFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 

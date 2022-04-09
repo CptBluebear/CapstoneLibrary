@@ -96,4 +96,20 @@ public class Book extends BaseTimeEntity {
 		this.user = user;
 		this.group = group;
 	}
+
+	@Override
+	public String toString() {
+		return "{" +
+				"seq=" + seq +
+				", title='" + title + '\'' +
+				", author='" + author + '\'' +
+				", publisher='" + publisher + '\'' +
+				", isbn='" + isbn + '\'' +
+				", code='" + code + '\'' +
+				", thumbnail='" + thumbnail + '\'' +
+				", publishDate=" + publishDate +
+				", description='" + description + '\'' +
+				", category=" + category +
+				'}';
+	}
 }
