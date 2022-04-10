@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import org.corodiak.capstonelibrary.type.etc.Role;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,6 +45,7 @@ public class User extends BaseTimeEntity {
 	private List<Group> adminList = new ArrayList<>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@JsonIgnore
 	private List<Book> bookList = new ArrayList<>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")

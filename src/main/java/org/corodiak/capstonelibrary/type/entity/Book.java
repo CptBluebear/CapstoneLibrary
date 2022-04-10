@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import org.corodiak.capstonelibrary.type.etc.Category;
 import org.corodiak.capstonelibrary.type.etc.CategoryConverter;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -73,6 +75,7 @@ public class Book extends BaseTimeEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_seq")
+	@JsonIgnore
 	private User user;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -100,16 +103,16 @@ public class Book extends BaseTimeEntity {
 	@Override
 	public String toString() {
 		return "{" +
-				"seq=" + seq +
-				", title='" + title + '\'' +
-				", author='" + author + '\'' +
-				", publisher='" + publisher + '\'' +
-				", isbn='" + isbn + '\'' +
-				", code='" + code + '\'' +
-				", thumbnail='" + thumbnail + '\'' +
-				", publishDate=" + publishDate +
-				", description='" + description + '\'' +
-				", category=" + category +
-				'}';
+			"seq=" + seq +
+			", title='" + title + '\'' +
+			", author='" + author + '\'' +
+			", publisher='" + publisher + '\'' +
+			", isbn='" + isbn + '\'' +
+			", code='" + code + '\'' +
+			", thumbnail='" + thumbnail + '\'' +
+			", publishDate=" + publishDate +
+			", description='" + description + '\'' +
+			", category=" + category +
+			'}';
 	}
 }
