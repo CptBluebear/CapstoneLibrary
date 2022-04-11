@@ -22,25 +22,25 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<Book> findAll() {
-		List<Book> books = new ArrayList<>();
-		bookRepository.findAll().forEach(b -> books.add(b));
-		return books;
-	}
-
-	@Override
-	public Book getById(Long idx) {
-		Book book = bookRepository.findById(idx).get();
-		return book;
-	}
-
-	@Override
-	public List<Book> getByUserId(Long idx) {
-		List<Book> bookList = bookRepository.findByUserSeq(idx);
+		List<Book> bookList = new ArrayList<>();
+		bookRepository.findAll().forEach(b -> bookList.add(b));
 		return bookList;
 	}
 
 	@Override
-	public List<Book> getByGroupId(Long idx) {
+	public Book getById(Long seq) {
+		Book book = bookRepository.findById(seq).get();
+		return book;
+	}
+
+	@Override
+	public List<Book> getByUserId(Long seq) {
+		List<Book> bookList = bookRepository.findByUserSeq(seq);
+		return bookList;
+	}
+
+	@Override
+	public List<Book> getByGroupId(Long seq) {
 		return null;
 	}
 
@@ -60,7 +60,6 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<Book> getByKeyword(String keyword) {
-		//bookRepository.f
 		return null;
 	}
 }

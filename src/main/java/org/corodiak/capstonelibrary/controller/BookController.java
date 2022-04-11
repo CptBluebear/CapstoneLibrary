@@ -97,11 +97,10 @@ public class BookController {
 
 	@RequestMapping(value = "/book/{idx}", method = RequestMethod.DELETE)
 	public ResponseModel deleteBook(@PathVariable(value = "idx") Long idx) {
-		ResponseModel responseModel = new ResponseModel();
-
 		bookService.getById(idx);
 		bookService.deleteById(idx);
 
+		ResponseModel responseModel = new ResponseModel();
 		responseModel.setHttpStatus(HttpStatus.OK);
 		responseModel.setMessage("요청에 성공하였습니다.");
 

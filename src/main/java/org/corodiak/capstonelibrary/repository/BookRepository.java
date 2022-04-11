@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
-	List<Book> findByUserSeq(Long id);
+	List<Book> findByUserSeq(Long seq);
 }

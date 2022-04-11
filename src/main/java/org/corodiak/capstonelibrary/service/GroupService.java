@@ -9,9 +9,11 @@ public interface GroupService {
 
 	public List<Group> findAll();
 
+	public List<Group> getPublicGroupList();
+
 	public Group getById(Long seq);
 
-	public Group getByUserId(Long seq);
+	public List<Group> getByAdminUserId(Long seq);
 
 	public void updateById(Long seq, Group group);
 
