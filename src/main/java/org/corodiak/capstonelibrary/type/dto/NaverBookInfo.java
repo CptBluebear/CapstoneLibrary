@@ -9,23 +9,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Getter
 @ToString
 @NoArgsConstructor
-public class NaverBookInfo {
-
-	private String title;
-	private String author;
-	private String publisher;
-	private LocalDate publishDate;
-	private String isbn;
-	private String description;
-	private String thumbnail;
+public class NaverBookInfo extends BookInfo {
 
 	public NaverBookInfo(String rawData) {
 		JsonElement jsonElement = JsonParser.parseString(rawData);

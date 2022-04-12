@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NaverBookApiImpl implements NaverBookApiService{
+public class NaverBookApiServiceImpl implements BookApiService {
 
 	@Value("${api.external.client.id}")
 	private String clientId;
