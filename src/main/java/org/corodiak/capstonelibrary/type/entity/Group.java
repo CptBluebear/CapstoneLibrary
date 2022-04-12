@@ -56,7 +56,7 @@ public class Group extends BaseTimeEntity {
 	)
 	private String thumbnail;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_seq")
 	private User user;
 

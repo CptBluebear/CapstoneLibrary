@@ -43,9 +43,8 @@ public class GroupController {
 		return responseModel;
 	}
 
-	/*@RequestMapping(value = "/group/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/group/list", method = RequestMethod.GET)
 	public ResponseModel getAllGroupList() {
-		System.out.println(groupService.findAll());
 		ResponseModel responseModel = new ResponseModel();
 		responseModel.addData("모임 목록", groupService.findAll());
 		responseModel.setHttpStatus(HttpStatus.OK);
@@ -56,7 +55,6 @@ public class GroupController {
 
 	@RequestMapping(value = "/group/publicList", method = RequestMethod.GET)
 	public ResponseModel getPublicGroupList() {
-		System.out.println(groupService.getPublicGroupList());
 		ResponseModel responseModel = new ResponseModel();
 		responseModel.addData("공개 모임 목록", groupService.getPublicGroupList());
 		responseModel.setHttpStatus(HttpStatus.OK);
@@ -73,7 +71,7 @@ public class GroupController {
 		responseModel.setMessage("요청에 성공하였습니다.");
 
 		return responseModel;
-	}*/
+	}
 
 	@RequestMapping(value = "/group/{idx}", method = RequestMethod.DELETE)
 	public ResponseModel deleteGroup(@PathVariable(value = "idx") Long idx){

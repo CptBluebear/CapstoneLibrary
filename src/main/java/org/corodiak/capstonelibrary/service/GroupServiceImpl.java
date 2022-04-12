@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.corodiak.capstonelibrary.repository.GroupRepository;
 import org.corodiak.capstonelibrary.type.entity.Group;
+import org.corodiak.capstonelibrary.type.vo.GroupVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,28 +21,29 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public List<Group> findAll() {
-		List<Group> groupList = new ArrayList<>();
-		groupRepository.findAll().forEach(g -> groupList.add(g));
+	public List<GroupVo> findAll() {
+		List<GroupVo> groupList = new ArrayList<>();
+		groupRepository.findAll().forEach(g -> groupList.add(new GroupVo.GroupVoWithAdmin(g)));
 		return groupList;
 	}
 
 	@Override
-	public List<Group> getPublicGroupList() {
-		List<Group> groupList = new ArrayList<>();
-		groupRepository.findByIsOpenFalse().forEach(g -> groupList.add(g));
+	public List<GroupVo> getPublicGroupList() {
+		List<GroupVo> groupList = new ArrayList<>();
+		groupRepository.findByIsOpenFalse().forEach(g -> groupList.add(new GroupVo.GroupVoWithAdmin(g)));
 		return groupList;
 	}
 
 	@Override
-	public Group getById(Long seq) {
-		Group group = groupRepository.findById(seq).get();
+	public GroupVo getById(Long seq) {
+		GroupVo group = new GroupVo.GroupVoWithAdmin(groupRepository.findById(seq).get());
 		return group;
 	}
 
 	@Override
-	public List<Group> getByAdminUserId(Long seq) {
-		List<Group> groupList = groupRepository.findByUserSeq(seq);
+	public List<GroupVo> getByAdminUserId(Long seq) {
+		List<GroupVo> groupList = new ArrayList<>();
+		groupRepository.findByUserSeq(seq).forEach(g -> groupList.add(new GroupVo.GroupVoWithAdmin(g)));
 		return groupList;
 	}
 

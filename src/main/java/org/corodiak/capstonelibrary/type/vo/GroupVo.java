@@ -23,6 +23,7 @@ public class GroupVo {
 		this.thumbnail = entity.getThumbnail();
 	}
 
+	@Getter
 	public static class GroupVoWithAdmin extends GroupVo {
 		private UserVo admin;
 		public GroupVoWithAdmin(Group entity) {
@@ -31,6 +32,7 @@ public class GroupVo {
 		}
 	}
 
+	@Getter
 	public static class GroupVoWithBookList extends GroupVo {
 		private List<BookVo> bookList;
 		public GroupVoWithBookList(Group entity) {

@@ -21,6 +21,7 @@ public class UserVo {
 		this.nickname = entity.getNickname();
 	}
 
+	@Getter
 	public static class UserVoWithAdminList extends UserVo {
 		private List<GroupVo> adminList;
 		public UserVoWithAdminList(User entity) {
@@ -34,6 +35,7 @@ public class UserVo {
 		}
 	}
 
+	@Getter
 	public static class UserVoWithBookList extends UserVo {
 		private List<BookVo> bookList;
 		public UserVoWithBookList(User entity) {
@@ -47,6 +49,7 @@ public class UserVo {
 		}
 	}
 
+	@Getter
 	public static class UserVoWithGroupList extends UserVo {
 		private List<GroupVo> groupList;
 		public UserVoWithGroupList(User entity) {
