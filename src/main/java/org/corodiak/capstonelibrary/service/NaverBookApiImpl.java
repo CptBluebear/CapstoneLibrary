@@ -32,6 +32,11 @@ public class NaverBookApiImpl implements NaverBookApiService{
 			connection.setRequestMethod("GET");
 			connection.setDoOutput(true);
 
+			int responseCode = connection.getResponseCode();
+			if(responseCode != 200) {
+				throw new BookApiResultNullException("Api Request Error!!");
+			}
+
 			StringBuilder stringBuilder = new StringBuilder();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			String line;
