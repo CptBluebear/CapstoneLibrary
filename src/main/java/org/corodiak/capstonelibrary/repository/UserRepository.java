@@ -1,9 +1,11 @@
 package org.corodiak.capstonelibrary.repository;
 
-import org.corodiak.capstonelibrary.type.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+import org.corodiak.capstonelibrary.type.entity.User;
+
+public interface UserRepository {
+	Optional<User> findBySeq(Long seq);
+	User save(User user);
+	Optional<User> findBySeqWithBookList(Long seq);
 }
