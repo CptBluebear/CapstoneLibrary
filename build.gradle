@@ -55,6 +55,9 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.9.0'
 
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    implementation 'com.google.guava:guava:31.1-jre'
+
 
 }
 
