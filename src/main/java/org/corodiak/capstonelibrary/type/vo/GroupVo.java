@@ -7,6 +7,7 @@ import org.corodiak.capstonelibrary.type.entity.Book;
 import org.corodiak.capstonelibrary.type.entity.Group;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
 public class GroupVo {
@@ -24,6 +25,7 @@ public class GroupVo {
 	}
 
 	@Getter
+	@ToString(callSuper = true)
 	public static class GroupVoWithAdmin extends GroupVo {
 		private UserVo admin;
 		public GroupVoWithAdmin(Group entity) {
@@ -33,6 +35,7 @@ public class GroupVo {
 	}
 
 	@Getter
+	@ToString(callSuper = true)
 	public static class GroupVoWithBookList extends GroupVo {
 		private List<BookVo> bookList;
 		public GroupVoWithBookList(Group entity) {

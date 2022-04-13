@@ -6,8 +6,10 @@ import org.corodiak.capstonelibrary.type.entity.Book;
 import org.corodiak.capstonelibrary.type.etc.Category;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class BookVo {
 
 	private Long seq;
@@ -35,6 +37,7 @@ public class BookVo {
 	}
 
 	@Getter
+	@ToString(callSuper = true)
 	public static class BookVoWithUserAndGroup extends BookVo {
 
 		private UserVo user;

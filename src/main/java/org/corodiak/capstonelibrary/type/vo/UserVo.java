@@ -9,8 +9,10 @@ import org.corodiak.capstonelibrary.type.entity.GroupUser;
 import org.corodiak.capstonelibrary.type.entity.User;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class UserVo {
 
 	private Long seq;
@@ -22,6 +24,7 @@ public class UserVo {
 	}
 
 	@Getter
+	@ToString(callSuper = true)
 	public static class UserVoWithAdminList extends UserVo {
 		private List<GroupVo> adminList;
 		public UserVoWithAdminList(User entity) {
@@ -36,6 +39,7 @@ public class UserVo {
 	}
 
 	@Getter
+	@ToString(callSuper = true)
 	public static class UserVoWithBookList extends UserVo {
 		private List<BookVo> bookList;
 		public UserVoWithBookList(User entity) {
@@ -50,6 +54,7 @@ public class UserVo {
 	}
 
 	@Getter
+	@ToString(callSuper = true)
 	public static class UserVoWithGroupList extends UserVo {
 		private List<GroupVo> groupList;
 		public UserVoWithGroupList(User entity) {
