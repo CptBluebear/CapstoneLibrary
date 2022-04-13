@@ -36,39 +36,31 @@ public class GroupController {
 			.build();
 		groupService.save(group);
 
-		ResponseModel responseModel = new ResponseModel();
-		responseModel.setHttpStatus(HttpStatus.OK);
-		responseModel.setMessage("요청에 성공하였습니다.");
+		ResponseModel responseModel = ResponseModel.builder().build();
 
 		return responseModel;
 	}
 
 	@RequestMapping(value = "/group/list", method = RequestMethod.GET)
 	public ResponseModel getAllGroupList() {
-		ResponseModel responseModel = new ResponseModel();
+		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("모임 목록", groupService.findAll());
-		responseModel.setHttpStatus(HttpStatus.OK);
-		responseModel.setMessage("요청에 성공하였습니다.");
 
 		return responseModel;
 	}
 
 	@RequestMapping(value = "/group/publicList", method = RequestMethod.GET)
 	public ResponseModel getPublicGroupList() {
-		ResponseModel responseModel = new ResponseModel();
+		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("공개 모임 목록", groupService.getPublicGroupList());
-		responseModel.setHttpStatus(HttpStatus.OK);
-		responseModel.setMessage("요청에 성공하였습니다.");
 
 		return responseModel;
 	}
 
 	@RequestMapping(value = "/group/{idx}", method = RequestMethod.GET)
 	public ResponseModel getGroup(@PathVariable(value = "idx") Long idx){
-		ResponseModel responseModel = new ResponseModel();
+		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("모임 정보", groupService.getById(idx));
-		responseModel.setHttpStatus(HttpStatus.OK);
-		responseModel.setMessage("요청에 성공하였습니다.");
 
 		return responseModel;
 	}
@@ -78,9 +70,7 @@ public class GroupController {
 		groupService.getById(idx);
 		groupService.deleteById(idx);
 
-		ResponseModel responseModel = new ResponseModel();
-		responseModel.setHttpStatus(HttpStatus.OK);
-		responseModel.setMessage("요청에 성공하였습니다.");
+		ResponseModel responseModel = ResponseModel.builder().build();
 
 		return responseModel;
 	}

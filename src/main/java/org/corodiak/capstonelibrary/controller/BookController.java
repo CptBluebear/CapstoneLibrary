@@ -55,29 +55,23 @@ public class BookController {
 			.build();
 		bookService.save(book);
 
-		ResponseModel responseModel = new ResponseModel();
-		responseModel.setHttpStatus(HttpStatus.OK);
-		responseModel.setMessage("요청에 성공하였습니다.");
+		ResponseModel responseModel = ResponseModel.builder().build();
 
 		return responseModel;
 	}
 
 	@RequestMapping(value = "/book/list", method = RequestMethod.GET)
 	public ResponseModel getAllBookList() {
-		ResponseModel responseModel = new ResponseModel();
+		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("도서 목록", bookService.findAll());
-		responseModel.setHttpStatus(HttpStatus.OK);
-		responseModel.setMessage("요청에 성공하였습니다.");
 
 		return responseModel;
 	}
 
 	@RequestMapping(value = "/book/{idx}", method = RequestMethod.GET)
 	public ResponseModel getBook(@PathVariable(value = "idx") Long idx) {
-		ResponseModel responseModel = new ResponseModel();
+		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("도서 정보", bookService.getById(idx));
-		responseModel.setHttpStatus(HttpStatus.OK);
-		responseModel.setMessage("요청에 성공하였습니다.");
 
 		return responseModel;
 	}
@@ -87,10 +81,8 @@ public class BookController {
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Book> bookList = bookService.getByUserId(Long.valueOf(user.getUsername()));
 
-		ResponseModel responseModel = new ResponseModel();
+		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("도서 정보", bookList);
-		responseModel.setHttpStatus(HttpStatus.OK);
-		responseModel.setMessage("요청에 성공하였습니다.");
 
 		return responseModel;
 	}
@@ -100,9 +92,7 @@ public class BookController {
 		bookService.getById(idx);
 		bookService.deleteById(idx);
 
-		ResponseModel responseModel = new ResponseModel();
-		responseModel.setHttpStatus(HttpStatus.OK);
-		responseModel.setMessage("요청에 성공하였습니다.");
+		ResponseModel responseModel = ResponseModel.builder().build();
 
 		return responseModel;
 	}

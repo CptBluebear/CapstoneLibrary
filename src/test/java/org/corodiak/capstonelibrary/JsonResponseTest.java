@@ -10,12 +10,12 @@ public class JsonResponseTest {
 
 	@Test
 	public void test() {
-		ResponseModel responseModel = new ResponseModel();
+		ResponseModel responseModel = ResponseModel.builder()
+			.message("Token Data")
+			.build();
 
 		String tokenData = "123123sdkljashfdlidsakfjis";
 
-		responseModel.setHttpStatus(HttpStatus.OK);
-		responseModel.setMessage("Token Data");
 		responseModel.addData("token", tokenData);
 
 		System.out.println(responseModel.toJson());
