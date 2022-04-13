@@ -41,9 +41,9 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		expiry.setTime(expiry.getTime() + (1000L * 60L * 60L * 24L) );
 		AuthToken authToken = authTokenProvider.createToken(Long.toString(userPrincipal.getUserId()), role, expiry);
 		System.out.println(authToken.getToken());
-		ResponseModel responseModel = new ResponseModel();
-		responseModel.setHttpStatus(HttpStatus.OK);
-		responseModel.setMessage("Authorization Token Issued.");
+		ResponseModel responseModel = ResponseModel.builder()
+			.message("Authorization Token Issued.")
+				.build();
 		responseModel.addData("token", authToken.getToken());
 		response.setHeader("Authorization", authToken.getToken());
 		OutputStream outputStream = response.getOutputStream();
