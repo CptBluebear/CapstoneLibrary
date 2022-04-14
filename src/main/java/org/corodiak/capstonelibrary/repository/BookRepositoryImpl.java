@@ -18,8 +18,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
 
-	private EntityManager entityManager;
-	private JPAQueryFactory jpaQueryFactory;
+	private final EntityManager entityManager;
+	private final JPAQueryFactory jpaQueryFactory;
 
 	private QBook qBook = QBook.book;
 
@@ -29,16 +29,14 @@ public class BookRepositoryImpl implements BookRepository {
 		List<Book> bookList = jpaQueryFactory.selectFrom(qBook)
 			.where(qBook.user.seq.eq(seq))
 			.orderBy(qBook.seq.asc())
-			.fetchAll()
 			.fetch();
 		return bookList;
 	}
 
 	@Override
 	public List<Book> findAll() {
+		System.out.println(jpaQueryFactory);
 		List<Book> bookList = jpaQueryFactory.selectFrom(qBook)
-			.orderBy(qBook.seq.asc())
-			.fetchAll()
 			.fetch();
 		return bookList;
 	}

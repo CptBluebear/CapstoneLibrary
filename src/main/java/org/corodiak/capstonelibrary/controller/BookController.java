@@ -24,6 +24,7 @@ public class BookController {
 	@Autowired
 	BookServiceImpl bookService;
 
+	/*
 	@RequestMapping(value = "/book", method = RequestMethod.POST)
 	public ResponseModel saveBook(
 		@RequestParam(value = "title") String title,
@@ -59,6 +60,7 @@ public class BookController {
 
 		return responseModel;
 	}
+	*/
 
 	@RequestMapping(value = "/book/list", method = RequestMethod.GET)
 	public ResponseModel getAllBookList() {
