@@ -6,6 +6,8 @@ import org.corodiak.capstonelibrary.type.entity.User;
 
 public interface UserRepository {
 	Optional<User> findBySeq(Long seq);
+
 	User save(User user);
+
 	Optional<User> findBySeqWithBookList(Long seq);
 }

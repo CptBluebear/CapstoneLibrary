@@ -22,6 +22,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void save(String title, String author, String publisher, String isbn, String code, String thumbnail,
 		LocalDate publishDate, String description, String category) {
+
 		Book book = Book.builder()
 			.title(title)
 			.author(author)
@@ -35,7 +36,9 @@ public class BookServiceImpl implements BookService {
 			//.user(user.getUsername())
 			//.group(group)
 			.build();
+
 		BookVo bookVo = new BookVo(book);
+
 		bookRepository.save(bookVo);
 	}
 

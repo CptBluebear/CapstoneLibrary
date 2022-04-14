@@ -33,7 +33,7 @@ public class NaverBookApiServiceImpl implements BookApiService {
 			connection.setDoOutput(true);
 
 			int responseCode = connection.getResponseCode();
-			if(responseCode != 200) {
+			if (responseCode != 200) {
 				throw new BookApiResultNullException("Api Request Error!!");
 			}
 

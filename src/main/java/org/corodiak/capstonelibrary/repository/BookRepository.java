@@ -10,8 +10,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookRepository {
 	public void save(BookVo book);
+
 	public List<Book> findByUserSeq(Long seq);
+
 	public List<Book> findAll();
+
 	public Optional<Book> findById(Long seq);
+
 	public long deleteById(Long seq);
 }

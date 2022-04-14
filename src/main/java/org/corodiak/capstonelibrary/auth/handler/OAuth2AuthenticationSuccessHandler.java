@@ -13,7 +13,6 @@ import org.corodiak.capstonelibrary.auth.jwt.AuthToken;
 import org.corodiak.capstonelibrary.auth.jwt.AuthTokenProvider;
 import org.corodiak.capstonelibrary.type.dto.ResponseModel;
 import org.corodiak.capstonelibrary.type.dto.UserPrincipal;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -38,12 +37,12 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		System.out.println(role);
 
 		Date expiry = new Date();
-		expiry.setTime(expiry.getTime() + (1000L * 60L * 60L * 24L) );
+		expiry.setTime(expiry.getTime() + (1000L * 60L * 60L * 24L * 365L));
 		AuthToken authToken = authTokenProvider.createToken(Long.toString(userPrincipal.getUserId()), role, expiry);
 		System.out.println(authToken.getToken());
 		ResponseModel responseModel = ResponseModel.builder()
 			.message("Authorization Token Issued.")
-				.build();
+			.build();
 		responseModel.addData("token", authToken.getToken());
 		response.setHeader("Authorization", authToken.getToken());
 		OutputStream outputStream = response.getOutputStream();

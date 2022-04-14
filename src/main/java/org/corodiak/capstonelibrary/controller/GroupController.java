@@ -2,7 +2,6 @@ package org.corodiak.capstonelibrary.controller;
 
 import org.corodiak.capstonelibrary.service.GroupService;
 import org.corodiak.capstonelibrary.type.dto.ResponseModel;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,11 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
+@RequiredArgsConstructor
 public class GroupController {
 
-	@Autowired
-	GroupService groupService;
+	private final GroupService groupService;
 
 	@RequestMapping(value = "/group", method = RequestMethod.POST)
 	public ResponseModel saveGroup(
@@ -50,7 +51,7 @@ public class GroupController {
 	}
 
 	@RequestMapping(value = "/group/{idx}", method = RequestMethod.GET)
-	public ResponseModel getGroup(@PathVariable(value = "idx") Long idx){
+	public ResponseModel getGroup(@PathVariable(value = "idx") Long idx) {
 		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("모임 정보", groupService.getById(idx));
 
@@ -58,7 +59,7 @@ public class GroupController {
 	}
 
 	@RequestMapping(value = "/group/{idx}", method = RequestMethod.DELETE)
-	public ResponseModel deleteGroup(@PathVariable(value = "idx") Long idx){
+	public ResponseModel deleteGroup(@PathVariable(value = "idx") Long idx) {
 		groupService.getById(idx);
 		groupService.deleteById(idx);
 

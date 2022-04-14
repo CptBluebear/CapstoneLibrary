@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.corodiak.capstonelibrary.type.entity.Group;
 import org.corodiak.capstonelibrary.type.entity.QGroup;
@@ -24,19 +25,27 @@ public class GroupRepositoryImpl implements GroupRepository {
 	private QGroup qGroup = QGroup.group;
 
 	@Override
-	public void save(GroupVo group){
-		entityManager.merge(group);
+	@Transactional
+	public void save(GroupVo group) {
+		Group groupEntity = Group.builder()
+			.thumbnail(group.getThumbnail())
+			.isOpen(group.isOpen())
+			.name(group.getName())
+			.authenticationCode(group.getAuthenticationCode())
+			.build();
+
+		entityManager.merge(groupEntity);
 	}
 
 	@Override
-	public List<Group> findAll(){
+	public List<Group> findAll() {
 		List<Group> groupList = jpaQueryFactory.selectFrom(qGroup)
 			.fetch();
 		return groupList;
 	}
 
 	@Override
-	public Optional<Group> findById(Long seq){
+	public Optional<Group> findById(Long seq) {
 		Group group = jpaQueryFactory.selectFrom(qGroup)
 			.where(qGroup.seq.eq(seq))
 			.fetchOne();
@@ -62,7 +71,8 @@ public class GroupRepositoryImpl implements GroupRepository {
 	}
 
 	@Override
-	public void deleteById(Long seq){
+	@Transactional
+	public void deleteById(Long seq) {
 		jpaQueryFactory.delete(qGroup).where(qGroup.seq.eq(seq)).execute();
 	}
 }

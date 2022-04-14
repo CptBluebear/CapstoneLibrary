@@ -25,8 +25,20 @@ public class BookRepositoryImpl implements BookRepository {
 	private QBook qBook = QBook.book;
 
 	@Override
+	@Transactional
 	public void save(BookVo book) {
-		entityManager.merge(book);
+		Book bookEntity = Book.builder()
+			.category(book.getCategory())
+			.author(book.getAuthor())
+			.code(book.getCode())
+			.description(book.getDescription())
+			.publishDate(book.getPublishDate())
+			.thumbnail(book.getThumbnail())
+			.isbn(book.getIsbn())
+			.title(book.getTitle())
+			.publisher(book.getPublisher())
+			.build();
+		entityManager.persist(bookEntity);
 	}
 
 	@Override
@@ -56,6 +68,7 @@ public class BookRepositoryImpl implements BookRepository {
 	}
 
 	@Override
+	@Transactional
 	public long deleteById(Long seq) {
 		return jpaQueryFactory.delete(qBook).where(qBook.seq.eq(seq)).execute();
 	}
