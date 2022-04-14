@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.corodiak.capstonelibrary.type.entity.Book;
 import org.corodiak.capstonelibrary.type.entity.QBook;
+import org.corodiak.capstonelibrary.type.vo.BookVo;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -22,6 +23,11 @@ public class BookRepositoryImpl implements BookRepository {
 	private final JPAQueryFactory jpaQueryFactory;
 
 	private QBook qBook = QBook.book;
+
+	@Override
+	public void save(BookVo book) {
+		entityManager.merge(book);
+	}
 
 	@Override
 	@Transactional

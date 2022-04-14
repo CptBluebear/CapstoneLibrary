@@ -1,11 +1,12 @@
 package org.corodiak.capstonelibrary.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.corodiak.capstonelibrary.type.entity.Book;
 
 public interface BookService {
-	//public void save(Book book);
+	public void save(String title, String author, String publisher, String isbn, String code, String thumbnail, LocalDate publishDate, String description, String category);
 
 	public List<Book> findAll();
 

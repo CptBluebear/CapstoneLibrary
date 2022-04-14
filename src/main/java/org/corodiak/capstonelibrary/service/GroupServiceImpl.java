@@ -6,18 +6,28 @@ import java.util.List;
 import org.corodiak.capstonelibrary.repository.GroupRepository;
 import org.corodiak.capstonelibrary.type.entity.Group;
 import org.corodiak.capstonelibrary.type.vo.GroupVo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService {
 
-	@Autowired
-	GroupRepository groupRepository;
+	private final GroupRepository groupRepository;
 
 	@Override
-	public void save(Group group) {
-		groupRepository.save(group);
+	public void save(String name, String thumbnail, String authenticationCode, boolean isOpen) {
+		Group group = Group.builder()
+			.name(name)
+			.thumbnail(thumbnail)
+			.authenticationCode(authenticationCode)
+			.isOpen(isOpen)
+			.build();
+
+		GroupVo groupVo = new GroupVo(group);
+
+		groupRepository.save(groupVo);
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import org.corodiak.capstonelibrary.type.entity.Group;
 import org.corodiak.capstonelibrary.type.vo.GroupVo;
 
 public interface GroupService {
-	public void save(Group group);
+	public void save(String name, String thumbnail, String authenticationCode, boolean isOpen);
 
 	public List<GroupVo> findAll();
 

@@ -2,9 +2,7 @@ package org.corodiak.capstonelibrary.controller;
 
 import org.corodiak.capstonelibrary.service.GroupService;
 import org.corodiak.capstonelibrary.type.dto.ResponseModel;
-import org.corodiak.capstonelibrary.type.entity.Group;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,13 +26,7 @@ public class GroupController {
 	) {
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		Group group = Group.builder()
-			.name(name)
-			.thumbnail(thumbnail)
-			.authenticationCode(authenticationCode)
-			.isOpen(isOpen)
-			.build();
-		groupService.save(group);
+		groupService.save(name, thumbnail, authenticationCode, isOpen);
 
 		ResponseModel responseModel = ResponseModel.builder().build();
 

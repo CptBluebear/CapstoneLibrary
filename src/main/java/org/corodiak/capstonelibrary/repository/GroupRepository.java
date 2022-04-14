@@ -1,13 +1,21 @@
 package org.corodiak.capstonelibrary.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.corodiak.capstonelibrary.type.entity.Group;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.corodiak.capstonelibrary.type.vo.GroupVo;
 
-@Repository
-public interface GroupRepository extends JpaRepository<Group, Long> {
-	List<Group> findByUserSeq(Long seq);
-	List<Group> findByIsOpenFalse();
+public interface GroupRepository {
+	void save(GroupVo group);
+
+	List<Group> findAll();
+
+	Optional<Group> findById(Long seq);
+
+	public List<Group> findByUserSeq(Long seq);
+
+	public List<Group> findByIsOpenFalse();
+
+	void deleteById(Long seq);
 }
