@@ -7,6 +7,9 @@ import org.corodiak.capstonelibrary.type.entity.Book;
 import org.corodiak.capstonelibrary.type.entity.Group;
 import org.corodiak.capstonelibrary.type.entity.GroupUser;
 import org.corodiak.capstonelibrary.type.entity.User;
+import org.corodiak.capstonelibrary.type.etc.Role;
+
+import net.minidev.json.annotate.JsonIgnore;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -17,10 +20,13 @@ public class UserVo {
 
 	private Long seq;
 	private String nickname;
+	@JsonIgnore
+	private Role role;
 
 	public UserVo(User entity) {
 		this.seq = entity.getSeq();
 		this.nickname = entity.getNickname();
+		this.role = entity.getRole();
 	}
 
 	@Getter
