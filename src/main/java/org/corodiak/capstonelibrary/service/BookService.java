@@ -5,7 +5,7 @@ import java.util.List;
 import org.corodiak.capstonelibrary.type.entity.Book;
 
 public interface BookService {
-	public void save(Book book);
+	//public void save(Book book);
 
 	public List<Book> findAll();
 

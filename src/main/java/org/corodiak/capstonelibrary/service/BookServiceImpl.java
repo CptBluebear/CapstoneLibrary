@@ -15,10 +15,12 @@ public class BookServiceImpl implements BookService {
 	@Autowired
 	private BookRepository bookRepository;
 
+	/*
 	@Override
 	public void save(Book book) {
 		bookRepository.save(book);
 	}
+	 */
 
 	@Override
 	public List<Book> findAll() {
