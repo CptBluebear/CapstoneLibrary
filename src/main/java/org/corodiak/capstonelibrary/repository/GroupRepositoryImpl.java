@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 
 import org.corodiak.capstonelibrary.type.entity.Group;
 import org.corodiak.capstonelibrary.type.entity.QGroup;
-import org.corodiak.capstonelibrary.type.vo.GroupVo;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -20,59 +19,45 @@ import lombok.RequiredArgsConstructor;
 public class GroupRepositoryImpl implements GroupRepository {
 
 	private final EntityManager entityManager;
-	private final JPAQueryFactory jpaQueryFactory;
+	private final JPAQueryFactory queryFactory;
 
-	private QGroup qGroup = QGroup.group;
+	QGroup qGroup = QGroup.group;
 
 	@Override
 	@Transactional
-	public void save(GroupVo group) {
-		Group groupEntity = Group.builder()
-			.thumbnail(group.getThumbnail())
-			.isOpen(group.isOpen())
-			.name(group.getName())
-			.authenticationCode(group.getAuthenticationCode())
-			.build();
-
-		entityManager.merge(groupEntity);
+	public Group save(Group group) {
+		entityManager.persist(group);
+		return group;
 	}
 
 	@Override
-	public List<Group> findAll() {
-		List<Group> groupList = jpaQueryFactory.selectFrom(qGroup)
-			.fetch();
-		return groupList;
+	@Transactional
+	public long deleteBySeq(Long seq) {
+		return queryFactory.delete(qGroup)
+			.where(qGroup.seq.eq(seq)).execute();
 	}
 
 	@Override
-	public Optional<Group> findById(Long seq) {
-		Group group = jpaQueryFactory.selectFrom(qGroup)
+	public Optional<Group> findBySeq(Long seq) {
+		Group group = queryFactory.selectFrom(qGroup)
 			.where(qGroup.seq.eq(seq))
 			.fetchOne();
 		return Optional.ofNullable(group);
 	}
 
 	@Override
-	public List<Group> findByUserSeq(Long seq) {
-		List<Group> groupList = jpaQueryFactory.selectFrom(qGroup)
-			.where(qGroup.user.seq.eq(seq))
-			.orderBy(qGroup.seq.asc())
+	public List<Group> findByUserSeq(Long userSeq) {
+		List<Group> results = queryFactory.selectFrom(qGroup)
+			.where(qGroup.user.seq.eq(userSeq))
 			.fetch();
-		return groupList;
+		return results;
 	}
 
 	@Override
-	public List<Group> findByIsOpenFalse() {
-		List<Group> groupList = jpaQueryFactory.selectFrom(qGroup)
-			.where(qGroup.isOpen.isFalse())
-			.orderBy(qGroup.seq.asc())
+	public List<Group> findGroupIsOpen() {
+		List<Group> results = queryFactory.selectFrom(qGroup)
+			.where(qGroup.isOpen.isTrue())
 			.fetch();
-		return groupList;
-	}
-
-	@Override
-	@Transactional
-	public void deleteById(Long seq) {
-		jpaQueryFactory.delete(qGroup).where(qGroup.seq.eq(seq)).execute();
+		return results;
 	}
 }

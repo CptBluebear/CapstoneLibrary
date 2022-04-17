@@ -1,10 +1,13 @@
 package org.corodiak.capstonelibrary.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.corodiak.capstonelibrary.Exception.SearchResultNotExistException;
 import org.corodiak.capstonelibrary.repository.GroupRepository;
 import org.corodiak.capstonelibrary.type.entity.Group;
+import org.corodiak.capstonelibrary.type.entity.User;
 import org.corodiak.capstonelibrary.type.vo.GroupVo;
 import org.springframework.stereotype.Service;
 
@@ -17,53 +20,48 @@ public class GroupServiceImpl implements GroupService {
 	private final GroupRepository groupRepository;
 
 	@Override
-	public void save(String name, String thumbnail, String authenticationCode, boolean isOpen) {
+	public GroupVo findBySeq(long seq) {
+		Optional<Group> group = groupRepository.findBySeq(seq);
+		if(group.isPresent()) {
+			return new GroupVo(group.get());
+		}
+		throw new SearchResultNotExistException();
+	}
+
+	@Override
+	public List<GroupVo> findOpenGroup() {
+		List<Group> groupList = groupRepository.findGroupIsOpen();
+		List<GroupVo> results = groupList.stream()
+			.map(e -> new GroupVo(e))
+			.collect(Collectors.toList());
+		return results;
+	}
+
+	@Override
+	public boolean removeGroup(long seq) {
+		long result = groupRepository.deleteBySeq(seq);
+		return result == 1;
+	}
+
+	@Override
+	public List<GroupVo> findByUserSeq(long userSeq) {
+		List<Group> groupList = groupRepository.findByUserSeq(userSeq);
+		List<GroupVo> results = groupList.stream()
+			.map(e -> new GroupVo(e))
+			.collect(Collectors.toList());
+		return results;
+	}
+
+	@Override
+	public boolean addGroup(String name, boolean isOpen, String thumbnail, long userSeq) {
 		Group group = Group.builder()
 			.name(name)
-			.thumbnail(thumbnail)
-			.authenticationCode(authenticationCode)
 			.isOpen(isOpen)
+			.thumbnail(thumbnail)
+			.authenticationCode("TEST")
+			.user(User.builder().seq(userSeq).build())
 			.build();
-
-		GroupVo groupVo = new GroupVo(group);
-
-		groupRepository.save(groupVo);
-	}
-
-	@Override
-	public List<GroupVo> findAll() {
-		List<GroupVo> groupList = new ArrayList<>();
-		groupRepository.findAll().forEach(g -> groupList.add(new GroupVo.GroupVoWithAdmin(g)));
-		return groupList;
-	}
-
-	@Override
-	public List<GroupVo> getPublicGroupList() {
-		List<GroupVo> groupList = new ArrayList<>();
-		groupRepository.findByIsOpenFalse().forEach(g -> groupList.add(new GroupVo.GroupVoWithAdmin(g)));
-		return groupList;
-	}
-
-	@Override
-	public GroupVo getById(Long seq) {
-		GroupVo group = new GroupVo.GroupVoWithAdmin(groupRepository.findById(seq).get());
-		return group;
-	}
-
-	@Override
-	public List<GroupVo> getByAdminUserId(Long seq) {
-		List<GroupVo> groupList = new ArrayList<>();
-		groupRepository.findByUserSeq(seq).forEach(g -> groupList.add(new GroupVo.GroupVoWithAdmin(g)));
-		return groupList;
-	}
-
-	@Override
-	public void updateById(Long seq, Group group) {
-
-	}
-
-	@Override
-	public void deleteById(Long seq) {
-		groupRepository.deleteById(seq);
+		groupRepository.save(group);
+		return true;
 	}
 }

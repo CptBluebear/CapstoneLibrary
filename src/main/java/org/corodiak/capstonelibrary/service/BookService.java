@@ -3,23 +3,20 @@ package org.corodiak.capstonelibrary.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.corodiak.capstonelibrary.type.entity.Book;
+import org.corodiak.capstonelibrary.type.etc.Category;
+import org.corodiak.capstonelibrary.type.vo.BookVo;
 
 public interface BookService {
-	public void save(String title, String author, String publisher, String isbn, String code, String thumbnail,
-		LocalDate publishDate, String description, String category);
+	List<BookVo> findAll();
 
-	public List<Book> findAll();
+	BookVo findBook(long seq);
+	
+	boolean addBook(String title, String author, String publisher, String isbn, String thumbnail, LocalDate publishDate,
+		String description, Category category, Long userSeq, Long groupSeq);
 
-	public Book getById(Long seq);
+	List<BookVo> findByUserSeq(long seq);
 
-	public List<Book> getByUserId(Long seq);
+	List<BookVo> findByGroupSeq(long seq);
 
-	public List<Book> getByGroupId(Long seq);
-
-	public void updateById(Long seq, Book book);
-
-	public void deleteById(Long seq);
-
-	public List<Book> getByKeyword(String keyword);
+	boolean removeBook(long seq);
 }

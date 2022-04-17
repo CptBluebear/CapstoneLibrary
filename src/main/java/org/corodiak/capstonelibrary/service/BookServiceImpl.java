@@ -1,15 +1,18 @@
 package org.corodiak.capstonelibrary.service;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.corodiak.capstonelibrary.Exception.SearchResultNotExistException;
 import org.corodiak.capstonelibrary.repository.BookRepository;
 import org.corodiak.capstonelibrary.type.entity.Book;
+import org.corodiak.capstonelibrary.type.entity.Group;
+import org.corodiak.capstonelibrary.type.entity.User;
 import org.corodiak.capstonelibrary.type.etc.Category;
 import org.corodiak.capstonelibrary.type.vo.BookVo;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,68 +23,60 @@ public class BookServiceImpl implements BookService {
 	private final BookRepository bookRepository;
 
 	@Override
-	public void save(String title, String author, String publisher, String isbn, String code, String thumbnail,
-		LocalDate publishDate, String description, String category) {
+	public List<BookVo> findAll() {
+		List<Book> bookList = bookRepository.findAll();
+		List<BookVo> results = bookList.stream()
+			.map(e -> new BookVo(e))
+			.collect(Collectors.toList());
+		return results;
+	}
 
+	@Override
+	public BookVo findBook(long seq) {
+		Optional<Book> book = bookRepository.findBySeq(seq);
+		if (book.isPresent()) {
+			return new BookVo(book.get());
+		}
+		throw new SearchResultNotExistException();
+	}
+
+	@Override
+	public boolean addBook(String title, String author, String publisher, String isbn, String thumbnail,
+		LocalDate publishDate, String description, Category category, Long userSeq, Long groupSeq) {
 		Book book = Book.builder()
 			.title(title)
 			.author(author)
 			.publisher(publisher)
 			.isbn(isbn)
-			.code(code)
 			.thumbnail(thumbnail)
 			.publishDate(publishDate)
 			.description(description)
-			.category(Category.ofCode(category))
-			//.user(user.getUsername())
-			//.group(group)
+			.category(category)
+			.user(User.builder().seq(userSeq).build())
+			.group(Group.builder().seq(groupSeq).build())
 			.build();
-
-		BookVo bookVo = new BookVo(book);
-
-		bookRepository.save(bookVo);
+		book = bookRepository.save(book);
+		return true;
 	}
 
 	@Override
-	public List<Book> findAll() {
-		List<Book> bookList = new ArrayList<>();
-		bookRepository.findAll().forEach(b -> bookList.add(b));
-		return bookList;
-	}
-
-	@Override
-	public Book getById(Long seq) {
-		Book book = bookRepository.findById(seq).get();
-		return book;
-	}
-
-	@Override
-	public List<Book> getByUserId(Long seq) {
+	public List<BookVo> findByUserSeq(long seq) {
 		List<Book> bookList = bookRepository.findByUserSeq(seq);
-		return bookList;
+		List<BookVo> results = bookList.stream()
+			.map(e -> new BookVo(e))
+			.collect(Collectors.toList());
+		return results;
 	}
 
 	@Override
-	public List<Book> getByGroupId(Long seq) {
+	public List<BookVo> findByGroupSeq(long seq) {
+		//아직 미구현
 		return null;
 	}
 
 	@Override
-	public void updateById(Long seq, Book book) {
-		Optional<Book> e = bookRepository.findById(seq);
-
-		if (e.isPresent()) {
-			BookVo bookVo = new BookVo(e.get());
-		}
-	}
-
-	@Override
-	public void deleteById(Long seq) {
-		bookRepository.deleteById(seq);
-	}
-
-	@Override
-	public List<Book> getByKeyword(String keyword) {
-		return null;
+	public boolean removeBook(long seq) {
+		long result = bookRepository.deleteBySeq(seq);
+		return result == 1;
 	}
 }

@@ -1,7 +1,11 @@
 package org.corodiak.capstonelibrary.controller;
 
+import java.util.List;
+
+import org.corodiak.capstonelibrary.auth.util.AuthUtil;
 import org.corodiak.capstonelibrary.service.GroupService;
 import org.corodiak.capstonelibrary.type.dto.ResponseModel;
+import org.corodiak.capstonelibrary.type.vo.GroupVo;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,57 +18,47 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/group")
 public class GroupController {
 
 	private final GroupService groupService;
 
-	@RequestMapping(value = "/group", method = RequestMethod.POST)
-	public ResponseModel saveGroup(
-		@RequestParam(value = "name") String name,
-		@RequestParam(value = "thumbnail") String thumbnail,
-		@RequestParam(value = "authenticationCode") String authenticationCode,
-		@RequestParam(value = "isOpen") boolean isOpen
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseModel groupAdd(
+		@RequestParam("name")String name,
+		@RequestParam("isOpen")boolean isOpen,
+		@RequestParam("thumbnail")String thumbnail
 	) {
-		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		groupService.save(name, thumbnail, authenticationCode, isOpen);
-
+		long userSeq = AuthUtil.getAuthenticationInfoSeq();
+		groupService.addGroup(name, isOpen, thumbnail, userSeq);
 		ResponseModel responseModel = ResponseModel.builder().build();
-
 		return responseModel;
 	}
 
-	@RequestMapping(value = "/group/list", method = RequestMethod.GET)
-	public ResponseModel getAllGroupList() {
+	@RequestMapping(value = "/{seq}", method = RequestMethod.DELETE)
+	public ResponseModel groupDelete(
+		@PathVariable("seq")long seq
+	) {
+		groupService.removeGroup(seq);
 		ResponseModel responseModel = ResponseModel.builder().build();
-		responseModel.addData("모임 목록", groupService.findAll());
-
 		return responseModel;
 	}
 
-	@RequestMapping(value = "/group/publicList", method = RequestMethod.GET)
-	public ResponseModel getPublicGroupList() {
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ResponseModel openGroupList() {
+		List<GroupVo> groupList = groupService.findOpenGroup();
 		ResponseModel responseModel = ResponseModel.builder().build();
-		responseModel.addData("공개 모임 목록", groupService.getPublicGroupList());
-
+		responseModel.addData("groupList", groupList);
 		return responseModel;
 	}
 
-	@RequestMapping(value = "/group/{idx}", method = RequestMethod.GET)
-	public ResponseModel getGroup(@PathVariable(value = "idx") Long idx) {
+	@RequestMapping(value = "/{seq}", method = RequestMethod.GET)
+	public ResponseModel groupGet(
+		@PathVariable("seq")long seq
+	) {
+		GroupVo group = groupService.findBySeq(seq);
 		ResponseModel responseModel = ResponseModel.builder().build();
-		responseModel.addData("모임 정보", groupService.getById(idx));
-
-		return responseModel;
-	}
-
-	@RequestMapping(value = "/group/{idx}", method = RequestMethod.DELETE)
-	public ResponseModel deleteGroup(@PathVariable(value = "idx") Long idx) {
-		groupService.getById(idx);
-		groupService.deleteById(idx);
-
-		ResponseModel responseModel = ResponseModel.builder().build();
-
+		responseModel.addData("group", group);
 		return responseModel;
 	}
 }
