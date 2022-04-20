@@ -3,6 +3,7 @@ package org.corodiak.capstonelibrary.type.entity;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,12 +31,15 @@ public class BookLog extends BaseTimeEntity {
 	private BookLogStatus status;
 
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_seq")
 	private User user;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "book_seq")
 	private Book book;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "group_seq")
+	private Group group;
 }

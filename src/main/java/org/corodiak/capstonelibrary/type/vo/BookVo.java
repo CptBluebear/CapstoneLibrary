@@ -21,6 +21,7 @@ public class BookVo {
 	private String thumbnail;
 	private LocalDate publishDate;
 	private String description;
+	private boolean isRental;
 	private Category category;
 
 	public BookVo(Book entity) {
@@ -33,6 +34,7 @@ public class BookVo {
 		this.thumbnail = entity.getThumbnail();
 		this.publishDate = entity.getPublishDate();
 		this.description = entity.getDescription();
+		this.isRental = entity.isRental();
 		this.category = entity.getCategory();
 	}
 

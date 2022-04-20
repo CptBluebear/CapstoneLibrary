@@ -70,6 +70,13 @@ public class Book extends BaseTimeEntity {
 	@Column
 	private String description;
 
+	@Builder.Default
+	@Column(
+		name = "rental_yn",
+		nullable = false
+	)
+	private boolean isRental = false;
+
 	@Convert(converter = CategoryConverter.class)
 	private Category category;
 
@@ -84,7 +91,7 @@ public class Book extends BaseTimeEntity {
 
 	@Builder
 	public Book(Long seq, String title, String author, String publisher, String isbn, String code,
-		String thumbnail, LocalDate publishDate, String description,
+		String thumbnail, LocalDate publishDate, String description, boolean isRental,
 		Category category, User user, Group group) {
 		this.seq = seq;
 		this.title = title;
@@ -95,6 +102,7 @@ public class Book extends BaseTimeEntity {
 		this.thumbnail = thumbnail;
 		this.publishDate = publishDate;
 		this.description = description;
+		this.isRental = isRental;
 		this.category = category;
 		this.user = user;
 		this.group = group;
@@ -112,6 +120,7 @@ public class Book extends BaseTimeEntity {
 			", thumbnail='" + thumbnail + '\'' +
 			", publishDate=" + publishDate +
 			", description='" + description + '\'' +
+			", isRental'" + isRental + '\'' +
 			", category=" + category +
 			'}';
 	}

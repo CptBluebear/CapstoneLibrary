@@ -39,6 +39,8 @@ public class QBook extends EntityPathBase<Book> {
 
     public final StringPath isbn = createString("isbn");
 
+    public final BooleanPath isRental = createBoolean("isRental");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 

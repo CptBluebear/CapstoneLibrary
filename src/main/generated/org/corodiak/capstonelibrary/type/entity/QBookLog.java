@@ -29,6 +29,8 @@ public class QBookLog extends EntityPathBase<BookLog> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
+    public final QGroup group;
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
@@ -57,6 +59,7 @@ public class QBookLog extends EntityPathBase<BookLog> {
     public QBookLog(Class<? extends BookLog> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.book = inits.isInitialized("book") ? new QBook(forProperty("book"), inits.get("book")) : null;
+        this.group = inits.isInitialized("group") ? new QGroup(forProperty("group"), inits.get("group")) : null;
         this.user = inits.isInitialized("user") ? new QUser(forProperty("user")) : null;
     }
 
