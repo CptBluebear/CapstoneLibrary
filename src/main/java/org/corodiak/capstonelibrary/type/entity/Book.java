@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 
 import org.corodiak.capstonelibrary.type.etc.Category;
 import org.corodiak.capstonelibrary.type.etc.CategoryConverter;
+import org.hibernate.annotations.ColumnDefault;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -70,12 +71,12 @@ public class Book extends BaseTimeEntity {
 	@Column
 	private String description;
 
-	@Builder.Default
 	@Column(
 		name = "rental_yn",
 		nullable = false
 	)
-	private boolean isRental = false;
+	@ColumnDefault("'N'")
+	private boolean isRental;
 
 	@Convert(converter = CategoryConverter.class)
 	private Category category;
@@ -120,7 +121,7 @@ public class Book extends BaseTimeEntity {
 			", thumbnail='" + thumbnail + '\'' +
 			", publishDate=" + publishDate +
 			", description='" + description + '\'' +
-			", isRental'" + isRental + '\'' +
+			", isRental='" + isRental + '\'' +
 			", category=" + category +
 			'}';
 	}
