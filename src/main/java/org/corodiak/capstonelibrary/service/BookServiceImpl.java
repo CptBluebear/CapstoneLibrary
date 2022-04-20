@@ -70,8 +70,11 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<BookVo> findByGroupSeq(long seq) {
-		//아직 미구현
-		return null;
+		List<Book> bookList = bookRepository.findByGroupSeq(seq);
+		List<BookVo> results = bookList.stream()
+			.map(e -> new BookVo(e))
+			.collect(Collectors.toList());
+		return results;
 	}
 
 	@Override

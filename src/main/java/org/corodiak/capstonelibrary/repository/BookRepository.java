@@ -13,4 +13,5 @@ public interface BookRepository {
 	List<Book> findAll();
 	List<Book> findByUserSeq(Long userSeq);
 
+	List<Book> findByGroupSeq(Long groupSer);
 }

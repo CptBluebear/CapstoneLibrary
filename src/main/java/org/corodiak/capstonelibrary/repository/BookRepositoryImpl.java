@@ -60,4 +60,12 @@ public class BookRepositoryImpl implements BookRepository {
 			.fetch();
 		return results;
 	}
+
+	@Override
+	public List<Book> findByGroupSeq(Long groupSeq) {
+		List<Book> results = queryFactory.selectFrom(qBook)
+			.where(qBook.group.seq.eq(groupSeq))
+			.fetch();
+		return results;
+	}
 }
