@@ -63,7 +63,7 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/mybook", method = RequestMethod.GET)
-	public ResponseModel myBookLust() {
+	public ResponseModel myBookList() {
 		long userSeq = AuthUtil.getAuthenticationInfoSeq();
 		List<BookVo> bookList = bookService.findByUserSeq(userSeq);
 		ResponseModel responseModel = ResponseModel.builder().build();
