@@ -14,6 +14,7 @@ import org.corodiak.capstonelibrary.type.etc.BookLogStatus;
 import org.corodiak.capstonelibrary.type.etc.BookLogStatusConverter;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,8 +29,7 @@ public class BookLog extends BaseTimeEntity {
 	private Long seq;
 
 	@Convert(converter = BookLogStatusConverter.class)
-	private BookLogStatus status;
-
+	private BookLogStatus bookLogStatus;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_seq")
@@ -42,4 +42,13 @@ public class BookLog extends BaseTimeEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "group_seq")
 	private Group group;
+
+	@Builder
+	public BookLog(Long seq, BookLogStatus bookLogStatus, User user, Book book, Group group) {
+		this.seq = seq;
+		this.bookLogStatus = bookLogStatus;
+		this.user = user;
+		this.book = book;
+		this.group = group;
+	}
 }

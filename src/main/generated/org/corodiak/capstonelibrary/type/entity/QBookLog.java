@@ -26,6 +26,8 @@ public class QBookLog extends EntityPathBase<BookLog> {
 
     public final QBook book;
 
+    public final EnumPath<org.corodiak.capstonelibrary.type.etc.BookLogStatus> bookLogStatus = createEnum("bookLogStatus", org.corodiak.capstonelibrary.type.etc.BookLogStatus.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
@@ -35,8 +37,6 @@ public class QBookLog extends EntityPathBase<BookLog> {
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
-
-    public final EnumPath<org.corodiak.capstonelibrary.type.etc.BookLogStatus> status = createEnum("status", org.corodiak.capstonelibrary.type.etc.BookLogStatus.class);
 
     public final QUser user;
 
