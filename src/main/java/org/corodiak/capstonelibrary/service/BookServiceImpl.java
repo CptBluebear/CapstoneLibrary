@@ -23,8 +23,8 @@ public class BookServiceImpl implements BookService {
 	private final BookRepository bookRepository;
 
 	@Override
-	public List<BookVo> findAll() {
-		List<Book> bookList = bookRepository.findAll();
+	public List<BookVo> findAll(long start, long display) {
+		List<Book> bookList = bookRepository.findAll(start, display);
 		List<BookVo> results = bookList.stream()
 			.map(e -> new BookVo(e))
 			.collect(Collectors.toList());
@@ -60,8 +60,8 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<BookVo> findByUserSeq(long seq) {
-		List<Book> bookList = bookRepository.findByUserSeq(seq);
+	public List<BookVo> findByUserSeq(long seq, long start, long display) {
+		List<Book> bookList = bookRepository.findByUserSeq(seq, start, display);
 		List<BookVo> results = bookList.stream()
 			.map(e -> new BookVo(e))
 			.collect(Collectors.toList());
@@ -69,8 +69,8 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<BookVo> findByGroupSeq(long seq) {
-		List<Book> bookList = bookRepository.findByGroupSeq(seq);
+	public List<BookVo> findByGroupSeq(long seq, long start, long display) {
+		List<Book> bookList = bookRepository.findByGroupSeq(seq, start, display);
 		List<BookVo> results = bookList.stream()
 			.map(e -> new BookVo(e))
 			.collect(Collectors.toList());

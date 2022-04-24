@@ -10,8 +10,8 @@ public interface BookRepository {
 	Book save(Book book);
 	long deleteBySeq(Long seq);
 	Optional<Book> findBySeq(Long seq);
-	List<Book> findAll();
-	List<Book> findByUserSeq(Long userSeq);
+	List<Book> findAll(long start, long display);
+	List<Book> findByUserSeq(Long userSeq, long start, long display);
 
-	List<Book> findByGroupSeq(Long groupSer);
+	List<Book> findByGroupSeq(Long groupSer, long start, long display);
 }

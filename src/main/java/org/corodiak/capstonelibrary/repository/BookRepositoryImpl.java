@@ -47,24 +47,30 @@ public class BookRepositoryImpl implements BookRepository {
 	}
 
 	@Override
-	public List<Book> findAll() {
+	public List<Book> findAll(long start, long display) {
 		List<Book> results = queryFactory.selectFrom(qBook)
+			.offset(start)
+			.limit(display)
 			.fetch();
 		return results;
 	}
 
 	@Override
-	public List<Book> findByUserSeq(Long userSeq) {
+	public List<Book> findByUserSeq(Long userSeq, long start, long display) {
 		List<Book> results = queryFactory.selectFrom(qBook)
 			.where(qBook.user.seq.eq(userSeq))
+			.offset(start)
+			.limit(display)
 			.fetch();
 		return results;
 	}
 
 	@Override
-	public List<Book> findByGroupSeq(Long groupSeq) {
+	public List<Book> findByGroupSeq(Long groupSeq, long start, long display) {
 		List<Book> results = queryFactory.selectFrom(qBook)
 			.where(qBook.group.seq.eq(groupSeq))
+			.offset(start)
+			.limit(display)
 			.fetch();
 		return results;
 	}

@@ -63,9 +63,12 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/mybook", method = RequestMethod.GET)
-	public ResponseModel myBookList() {
+	public ResponseModel myBookList(
+		@RequestParam(name = "start", required = false, defaultValue = "0") long start,
+		@RequestParam(name = "display", required = false, defaultValue = "20") long display
+	) {
 		long userSeq = AuthUtil.getAuthenticationInfoSeq();
-		List<BookVo> bookList = bookService.findByUserSeq(userSeq);
+		List<BookVo> bookList = bookService.findByUserSeq(userSeq, start, display);
 		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("bookList", bookList);
 		return responseModel;
@@ -73,13 +76,15 @@ public class BookController {
 
 	@RequestMapping(value = {"/list"}, method = RequestMethod.GET)
 	public ResponseModel bookList(
-		@RequestParam(name = "groupSeq", required = false, defaultValue = "-1")long groupSeq
+		@RequestParam(name = "groupSeq", required = false, defaultValue = "-1") long groupSeq,
+		@RequestParam(name = "start", required = false, defaultValue = "0") long start,
+		@RequestParam(name = "display", required = false, defaultValue = "20") long display
 	) {
 		List<BookVo> bookList = null;
-		if(groupSeq == -1) {
-			bookList = bookService.findAll();
+		if (groupSeq == -1) {
+			bookList = bookService.findAll(start, display);
 		} else {
-			bookList = bookService.findByGroupSeq(groupSeq);
+			bookList = bookService.findByGroupSeq(groupSeq, start, display);
 		}
 		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("bookList", bookList);
