@@ -11,6 +11,7 @@ import org.corodiak.capstonelibrary.type.entity.OAuthUser;
 import org.corodiak.capstonelibrary.type.entity.User;
 import org.corodiak.capstonelibrary.type.etc.OAuthProvider;
 import org.corodiak.capstonelibrary.type.etc.Role;
+import org.corodiak.capstonelibrary.util.NicknameGenerator;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -25,6 +26,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
 	private final OAuthUserRepository oAuthUserRepository;
 	private final UserRepository userRepository;
+	private final NicknameGenerator nicknameGenerator;
 
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -59,7 +61,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 			user = oAuthUser.getUser();
 		} else {
 			user = User.builder()
-				.nickname("NICKNAME")
+				.nickname(nicknameGenerator.generate())
 				.role(Role.USER)
 				.build();
 			userRepository.save(user);
