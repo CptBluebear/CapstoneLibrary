@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		System.out.println("customuserdetailservice active");
 		Optional<User> user = userRepository.findBySeq(Long.parseLong(username));
 		log.info("data : {}", user);
-		if(!user.isPresent()) {
+		if (!user.isPresent()) {
 			throw new UsernameNotFoundException(username);
 		}
 		return UserPrincipal.create(user.get());

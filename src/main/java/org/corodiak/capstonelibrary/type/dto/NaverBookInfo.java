@@ -19,7 +19,7 @@ public class NaverBookInfo extends BookInfo {
 
 	public NaverBookInfo(String rawData) {
 		JsonElement jsonElement = JsonParser.parseString(rawData);
-		if(jsonElement.getAsJsonObject().get("items").getAsJsonArray().size() < 1) {
+		if (jsonElement.getAsJsonObject().get("items").getAsJsonArray().size() < 1) {
 			throw new BookApiResultNullException("Not Exist Search Result!!");
 		}
 		JsonObject bookData = jsonElement.getAsJsonObject().get("items").getAsJsonArray().get(0).getAsJsonObject();

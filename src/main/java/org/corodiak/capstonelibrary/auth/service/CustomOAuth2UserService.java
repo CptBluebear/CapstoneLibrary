@@ -56,7 +56,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 		);
 		User user;
 		OAuthUser oAuthUser;
-		if(savedUser.isPresent()) {
+		if (savedUser.isPresent()) {
 			oAuthUser = savedUser.get();
 			user = oAuthUser.getUser();
 		} else {

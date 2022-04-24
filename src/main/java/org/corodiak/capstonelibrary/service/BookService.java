@@ -10,7 +10,7 @@ public interface BookService {
 	List<BookVo> findAll(long start, long display);
 
 	BookVo findBook(long seq);
-	
+
 	boolean addBook(String title, String author, String publisher, String isbn, String thumbnail, LocalDate publishDate,
 		String description, Category category, Long userSeq, Long groupSeq);
 

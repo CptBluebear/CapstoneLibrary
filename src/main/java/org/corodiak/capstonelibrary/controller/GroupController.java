@@ -25,9 +25,9 @@ public class GroupController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseModel groupAdd(
-		@RequestParam("name")String name,
-		@RequestParam("isOpen")boolean isOpen,
-		@RequestParam("thumbnail")String thumbnail
+		@RequestParam("name") String name,
+		@RequestParam("isOpen") boolean isOpen,
+		@RequestParam("thumbnail") String thumbnail
 	) {
 		long userSeq = AuthUtil.getAuthenticationInfoSeq();
 		groupService.addGroup(name, isOpen, thumbnail, userSeq);
@@ -37,7 +37,7 @@ public class GroupController {
 
 	@RequestMapping(value = "/{seq}", method = RequestMethod.DELETE)
 	public ResponseModel groupDelete(
-		@PathVariable("seq")long seq
+		@PathVariable("seq") long seq
 	) {
 		groupService.removeGroup(seq);
 		ResponseModel responseModel = ResponseModel.builder().build();
@@ -54,7 +54,7 @@ public class GroupController {
 
 	@RequestMapping(value = "/{seq}", method = RequestMethod.GET)
 	public ResponseModel groupGet(
-		@PathVariable("seq")long seq
+		@PathVariable("seq") long seq
 	) {
 		GroupVo group = groupService.findBySeq(seq);
 		ResponseModel responseModel = ResponseModel.builder().build();

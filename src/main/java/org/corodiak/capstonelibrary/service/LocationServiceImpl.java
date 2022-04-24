@@ -29,7 +29,7 @@ public class LocationServiceImpl implements LocationService {
 	@Override
 	public LocationPointVo findByLocationSeq(long locationSeq) {
 		Optional<LocationPoint> locationPoint = repository.findByLocationSeq(locationSeq);
-		if(!locationPoint.isPresent()) {
+		if (!locationPoint.isPresent()) {
 			throw new SearchResultNotExistException();
 		}
 		return new LocationPointVo(locationPoint.get());

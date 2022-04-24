@@ -20,7 +20,7 @@ public class UserRepositoryTest {
 	public void test1() {
 		Optional<User> result = userRepository.findBySeq(Long.valueOf(1));
 		UserVo user = null;
-		if(result.isPresent()) {
+		if (result.isPresent()) {
 			user = new UserVo(result.get());
 		} else {
 			Assertions.fail("유저 정보가 로드되지 않음");
@@ -32,7 +32,7 @@ public class UserRepositoryTest {
 	public void test2() {
 		Optional<User> result = userRepository.findBySeqWithBookList(Long.valueOf(2));
 		UserVo user = null;
-		if(result.isPresent()) {
+		if (result.isPresent()) {
 			user = new UserVo.UserVoWithBookList(result.get());
 		} else {
 			Assertions.fail("유저 정보가 로드되지 않음");

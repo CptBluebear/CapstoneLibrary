@@ -33,11 +33,12 @@ public class UserVo {
 	@ToString(callSuper = true)
 	public static class UserVoWithAdminList extends UserVo {
 		private List<GroupVo> adminList;
+
 		public UserVoWithAdminList(User entity) {
 			super(entity);
 			List<Group> data = entity.getAdminList();
 			adminList = new ArrayList<>();
-			for(Group g:data) {
+			for (Group g : data) {
 				GroupVo group = new GroupVo(g);
 				adminList.add(group);
 			}
@@ -48,11 +49,12 @@ public class UserVo {
 	@ToString(callSuper = true)
 	public static class UserVoWithBookList extends UserVo {
 		private List<BookVo> bookList;
+
 		public UserVoWithBookList(User entity) {
 			super(entity);
 			List<Book> data = entity.getBookList();
 			bookList = new ArrayList<>();
-			for(Book b:data) {
+			for (Book b : data) {
 				BookVo book = new BookVo(b);
 				bookList.add(book);
 			}
@@ -63,11 +65,12 @@ public class UserVo {
 	@ToString(callSuper = true)
 	public static class UserVoWithGroupList extends UserVo {
 		private List<GroupVo> groupList;
+
 		public UserVoWithGroupList(User entity) {
 			super(entity);
 			List<GroupUser> data = entity.getGroups();
 			groupList = new ArrayList<>();
-			for(GroupUser group:data) {
+			for (GroupUser group : data) {
 				GroupVo groupVo = new GroupVo(group.getGroup());
 				groupList.add(groupVo);
 			}

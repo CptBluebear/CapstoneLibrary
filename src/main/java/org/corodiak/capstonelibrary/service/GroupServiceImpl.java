@@ -22,7 +22,7 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public GroupVo findBySeq(long seq) {
 		Optional<Group> group = groupRepository.findBySeq(seq);
-		if(group.isPresent()) {
+		if (group.isPresent()) {
 			return new GroupVo(group.get());
 		}
 		throw new SearchResultNotExistException();

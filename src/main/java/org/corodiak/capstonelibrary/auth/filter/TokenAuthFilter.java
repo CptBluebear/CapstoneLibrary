@@ -30,7 +30,7 @@ public class TokenAuthFilter extends OncePerRequestFilter {
 		log.info("token data : {}", token);
 		AuthToken authToken = authTokenProvider.convertToken(token);
 
-		if(authToken.validate()) {
+		if (authToken.validate()) {
 			log.info("token validate");
 			Authentication authentication = authTokenProvider.getAuthentication(authToken);
 			SecurityContextHolder.getContext().setAuthentication(authentication);

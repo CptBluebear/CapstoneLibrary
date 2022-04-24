@@ -8,9 +8,13 @@ import org.corodiak.capstonelibrary.type.entity.Group;
 public interface GroupRepository {
 
 	Group save(Group group);
+
 	long deleteBySeq(Long seq);
+
 	Optional<Group> findBySeq(Long seq);
+
 	List<Group> findByUserSeq(Long userSeq);
+
 	List<Group> findGroupIsOpen();
 
 }

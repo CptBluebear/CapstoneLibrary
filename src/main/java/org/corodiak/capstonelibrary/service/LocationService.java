@@ -8,8 +8,11 @@ import org.corodiak.capstonelibrary.type.vo.LocationPointVo;
 public interface LocationService {
 
 	boolean addLocation(long locationSeq, String name, double longitude, double latitude);
+
 	LocationPointVo findByLocationSeq(long locationSeq);
+
 	boolean removeLocation(long locationSeq);
+
 	Map<Long, LocationPointVo> findByLocationAndDistance(double longitude, double latitude, int distance);
 
 }
