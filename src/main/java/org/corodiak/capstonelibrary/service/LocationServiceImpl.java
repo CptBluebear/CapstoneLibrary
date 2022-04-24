@@ -1,7 +1,9 @@
 package org.corodiak.capstonelibrary.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.corodiak.capstonelibrary.Exception.SearchResultNotExistException;
@@ -40,11 +42,13 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public List<LocationPointVo> findByLocationAndDistance(double longitude, double latitude, int distance) {
+	public Map<Long, LocationPointVo> findByLocationAndDistance(double longitude, double latitude, int distance) {
 		List<LocationPoint> locationPointList = repository.findByLocationAndDistance(longitude, latitude, distance);
-		List<LocationPointVo> results = locationPointList.stream()
-			.map(e -> new LocationPointVo(e))
-			.collect(Collectors.toList());
+		Map<Long, LocationPointVo> results = locationPointList.stream()
+			.collect(Collectors.toMap(
+				e1 -> e1.getLocationSeq(),
+				e2 -> new LocationPointVo(e2)
+			));
 		return results;
 	}
 }
