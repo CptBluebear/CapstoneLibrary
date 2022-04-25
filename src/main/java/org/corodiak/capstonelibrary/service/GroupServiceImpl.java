@@ -23,7 +23,7 @@ public class GroupServiceImpl implements GroupService {
 	public GroupVo findBySeq(long seq) {
 		Optional<Group> group = groupRepository.findBySeq(seq);
 		if (group.isPresent()) {
-			return new GroupVo(group.get());
+			return new GroupVo.GroupVoWithAdmin(group.get());
 		}
 		throw new SearchResultNotExistException();
 	}
