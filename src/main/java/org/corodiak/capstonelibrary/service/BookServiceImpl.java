@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.corodiak.capstonelibrary.Exception.SearchResultNotExistException;
 import org.corodiak.capstonelibrary.repository.BookRepository;
 import org.corodiak.capstonelibrary.type.entity.Book;
@@ -81,5 +83,28 @@ public class BookServiceImpl implements BookService {
 	public boolean removeBook(long seq) {
 		long result = bookRepository.deleteBySeq(seq);
 		return result == 1;
+	}
+
+	@Override
+	@Transactional
+	public boolean updateBook(long seq, String title, String author, String publisher, String isbn, String thumbnail,
+		LocalDate publishDate, String description, Category category) {
+
+		Optional<Book> book = bookRepository.findBySeq(seq);
+		if(!book.isPresent()) {
+			throw new SearchResultNotExistException();
+		}
+
+		Book result = book.get();
+		result.setTitle(title);
+		result.setAuthor(author);
+		result.setPublisher(publisher);
+		result.setIsbn(isbn);
+		result.setThumbnail(thumbnail);
+		result.setPublishDate(publishDate);
+		result.setDescription(description);
+		result.setCategory(category);
+
+		return true;
 	}
 }

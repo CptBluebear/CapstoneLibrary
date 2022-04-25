@@ -19,4 +19,7 @@ public interface BookService {
 	List<BookVo> findByGroupSeq(long seq, long start, long display);
 
 	boolean removeBook(long seq);
+
+	boolean updateBook(long seq, String title, String author, String publisher, String isbn, String thumbnail,
+		LocalDate publishDate, String description, Category category);
 }
