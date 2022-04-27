@@ -22,4 +22,8 @@ public interface BookService {
 
 	boolean updateBook(long seq, String title, String author, String publisher, String isbn, String thumbnail,
 		LocalDate publishDate, String description, Category category);
+
+	boolean borrowBook(Long userSeq, Long bookSeq);
+
+	boolean returnBook(Long userSeq, Long bookSeq);
 }

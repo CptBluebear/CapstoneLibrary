@@ -18,4 +18,8 @@ public interface BookRepository {
 	List<Book> findByUserSeq(Long userSeq, long start, long display);
 
 	List<Book> findByGroupSeq(Long groupSer, long start, long display);
+
+	Long borrowBook(Long seq);
+
+	Long returnBook(Long seq);
 }

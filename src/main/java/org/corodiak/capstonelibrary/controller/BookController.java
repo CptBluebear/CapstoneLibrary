@@ -91,4 +91,45 @@ public class BookController {
 		return responseModel;
 	}
 
+	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	public ResponseModel bookUpdate(
+		@RequestParam("seq") Long seq,
+		@RequestParam("title") String title,
+		@RequestParam("author") String author,
+		@RequestParam("publisher") String publisher,
+		@RequestParam("isbn") String isbn,
+		@RequestParam("thumbnail") String thumbnail,
+		@RequestParam("publishDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate publishDate,
+		@RequestParam("description") String description,
+		@RequestParam("category") String category
+	) {
+		bookService.updateBook(seq, title, author, publisher, isbn, thumbnail, publishDate, description,
+			Category.ofCode(category));
+		ResponseModel responseModel = ResponseModel.builder().build();
+		return responseModel;
+	}
+
+	@RequestMapping(value = "/borrow", method = RequestMethod.PATCH)
+	public ResponseModel borrowBook(
+		@RequestParam("bookSeq") Long bookSeq
+	) {
+		long userSeq = AuthUtil.getAuthenticationInfoSeq();
+
+		bookService.borrowBook(userSeq, bookSeq);
+
+		ResponseModel responseModel = ResponseModel.builder().build();
+		return responseModel;
+	}
+
+	@RequestMapping(value = "/return", method = RequestMethod.PATCH)
+	public ResponseModel returnBook(
+		@RequestParam("bookSeq") Long bookSeq
+	) {
+		long userSeq = AuthUtil.getAuthenticationInfoSeq();
+
+		bookService.returnBook(userSeq, bookSeq);
+
+		ResponseModel responseModel = ResponseModel.builder().build();
+		return responseModel;
+	}
 }

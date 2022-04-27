@@ -74,4 +74,22 @@ public class BookRepositoryImpl implements BookRepository {
 			.fetch();
 		return results;
 	}
+
+	@Override
+	@Transactional
+	public Long borrowBook(Long seq) {
+		return queryFactory.update(qBook)
+			.set(qBook.isRental, true)
+			.where(qBook.seq.eq(seq))
+			.execute();
+	}
+
+	@Override
+	@Transactional
+	public Long returnBook(Long seq) {
+		return queryFactory.update(qBook)
+			.set(qBook.isRental, false)
+			.where(qBook.seq.eq(seq))
+			.execute();
+	}
 }
