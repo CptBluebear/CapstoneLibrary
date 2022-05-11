@@ -17,4 +17,5 @@ public interface GroupRepository {
 
 	List<Group> findGroupIsOpen();
 
+	Optional<Group> findByAuthenticationCode(String authenticationCode);
 }

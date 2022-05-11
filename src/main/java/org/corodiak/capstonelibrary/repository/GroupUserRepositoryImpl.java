@@ -1,5 +1,7 @@
 package org.corodiak.capstonelibrary.repository;
 
+import java.util.Optional;
+
 import javax.persistence.EntityManager;
 
 import org.corodiak.capstonelibrary.type.entity.GroupUser;
@@ -30,5 +32,14 @@ public class GroupUserRepositoryImpl implements GroupUserRepository {
 		return queryFactory.delete(qGroupUser)
 			.where(qGroupUser.user.seq.eq(userSeq).and(qGroupUser.group.seq.eq(groupSeq)))
 			.execute();
+	}
+
+	@Override
+	public Optional<GroupUser> findByUserSeqAndGroupSeq(Long userSeq, Long groupSeq) {
+		GroupUser groupUser = queryFactory.selectFrom(qGroupUser)
+			.where(qGroupUser.group.seq.eq(groupSeq)
+				.and(qGroupUser.user.seq.eq(userSeq)))
+			.fetchOne();
+		return Optional.ofNullable(groupUser);
 	}
 }

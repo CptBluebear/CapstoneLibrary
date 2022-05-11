@@ -60,4 +60,9 @@ public class GroupRepositoryImpl implements GroupRepository {
 			.fetch();
 		return results;
 	}
+
+	@Override
+	public Optional<Group> findByAuthenticationCode(String authenticationCode) {
+		return null;
+	}
 }

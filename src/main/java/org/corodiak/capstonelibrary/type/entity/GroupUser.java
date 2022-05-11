@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import org.corodiak.capstonelibrary.type.entity.id.GroupUserId;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,4 +29,9 @@ public class GroupUser extends BaseTimeEntity {
 	@JoinColumn(name = "user_seq")
 	private User user;
 
+	@Builder
+	public GroupUser(Group group, User user) {
+		this.group = group;
+		this.user = user;
+	}
 }

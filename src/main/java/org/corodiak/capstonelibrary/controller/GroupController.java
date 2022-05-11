@@ -64,12 +64,16 @@ public class GroupController {
 		return responseModel;
 	}
 
-	@RequestMapping(value = "/join/{seq}")
+	@RequestMapping(value = "/join")
 	public ResponseModel groupJoin(
-		@PathVariable("seq") long seq,
+		@RequestParam(name = "seq", required = false, defaultValue = "-1") Long seq,
 		@RequestParam(name = "authenticationCode", required = false, defaultValue = "") String authenticationCode
 	) {
 		long userSeq = AuthUtil.getAuthenticationInfoSeq();
+
+		if (seq == -1) {
+
+		}
 
 		ResponseModel responseModel = ResponseModel.builder().build();
 		return responseModel;
