@@ -54,7 +54,17 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public boolean addGroup(String name, boolean isOpen, String thumbnail, long userSeq, double longtitude, double latitude) {
+	public Long findByAuthenticaionCode(String authenticationCode) {
+		Optional<Group> group = groupRepository.findByAuthenticationCode(authenticationCode);
+		if (group.isPresent()) {
+			return group.get().getSeq();
+		}
+		return Long.parseLong("-1");
+	}
+
+	@Override
+	public boolean addGroup(String name, boolean isOpen, String thumbnail, long userSeq, double longtitude,
+		double latitude) {
 		Group group = Group.builder()
 			.name(name)
 			.isOpen(isOpen)

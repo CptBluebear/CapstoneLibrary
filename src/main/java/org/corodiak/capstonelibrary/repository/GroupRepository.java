@@ -18,4 +18,6 @@ public interface GroupRepository {
 	List<Group> findGroupIsOpen();
 
 	Optional<Group> findByAuthenticationCode(String authenticationCode);
+
+	Long authorizeAdmin(Long groupSeq, Long userSeq);
 }

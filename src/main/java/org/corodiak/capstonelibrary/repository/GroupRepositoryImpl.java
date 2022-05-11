@@ -63,6 +63,14 @@ public class GroupRepositoryImpl implements GroupRepository {
 
 	@Override
 	public Optional<Group> findByAuthenticationCode(String authenticationCode) {
+		Group group = queryFactory.selectFrom(qGroup)
+			.where(qGroup.authenticationCode.eq(authenticationCode))
+			.fetchOne();
+		return Optional.ofNullable(group);
+	}
+
+	@Override
+	public Long authorizeAdmin(Long groupSeq, Long userSeq){
 		return null;
 	}
 }
