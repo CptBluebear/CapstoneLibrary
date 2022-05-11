@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class GroupServiceImpl implements GroupService {
 
 	private final GroupRepository groupRepository;
+	private final LocationService locationService;
 
 	@Override
 	public GroupVo findBySeq(long seq) {
@@ -53,15 +54,18 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public boolean addGroup(String name, boolean isOpen, String thumbnail, long userSeq) {
+	public boolean addGroup(String name, boolean isOpen, String thumbnail, long userSeq, double longtitude, double latitude) {
 		Group group = Group.builder()
 			.name(name)
 			.isOpen(isOpen)
 			.thumbnail(thumbnail)
 			.authenticationCode("TEST")
 			.user(User.builder().seq(userSeq).build())
+			.longtitude(longtitude)
+			.latitude(latitude)
 			.build();
 		groupRepository.save(group);
+		locationService.addLocation(group.getSeq(), group.getName(), longtitude, latitude);
 		return true;
 	}
 }

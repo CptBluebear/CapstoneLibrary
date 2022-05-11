@@ -36,7 +36,11 @@ public class Group extends BaseTimeEntity {
 	)
 	private String name;
 
-	//Location???
+	@Column
+	double longtitude;
+
+	@Column
+	double latitude;
 
 	@Column(
 		name = "open_yn",
@@ -68,12 +72,14 @@ public class Group extends BaseTimeEntity {
 
 	@Builder
 	public Group(Long seq, String name, boolean isOpen, String authenticationCode, String thumbnail,
-		User user) {
+		User user, double longtitude, double latitude) {
 		this.seq = seq;
 		this.name = name;
 		this.isOpen = isOpen;
 		this.authenticationCode = authenticationCode;
 		this.thumbnail = thumbnail;
 		this.user = user;
+		this.longtitude = longtitude;
+		this.latitude = latitude;
 	}
 }

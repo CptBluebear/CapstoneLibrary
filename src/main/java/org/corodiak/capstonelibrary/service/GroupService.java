@@ -14,6 +14,6 @@ public interface GroupService {
 
 	List<GroupVo> findByUserSeq(long userSeq);
 
-	boolean addGroup(String name, boolean isOpen, String thumbnail, long userSeq);
+	boolean addGroup(String name, boolean isOpen, String thumbnail, long userSeq, double longtitude, double latitude);
 
 }
