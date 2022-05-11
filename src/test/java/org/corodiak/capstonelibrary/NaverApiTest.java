@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.corodiak.capstonelibrary.service.BookApiService;
 import org.corodiak.capstonelibrary.type.dto.BookInfo;
-import org.corodiak.capstonelibrary.type.dto.NaverBookInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class NaverApiTest {
+
+	static {
+		System.setProperty("jasypt.encryptor.password", "?????????");
+	}
 
 	@Autowired
 	BookApiService naverBookApiService;
@@ -23,5 +26,4 @@ public class NaverApiTest {
 		info = naverBookApiService.searchByIsbn("9788998139766XXXXXX");
 		Assertions.assertEquals(null, info.getAuthor());
 	}
-
 }

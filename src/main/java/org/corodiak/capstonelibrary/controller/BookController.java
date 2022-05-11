@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.corodiak.capstonelibrary.auth.util.AuthUtil;
+import org.corodiak.capstonelibrary.service.BookApiService;
 import org.corodiak.capstonelibrary.service.BookService;
+import org.corodiak.capstonelibrary.type.dto.BookInfo;
 import org.corodiak.capstonelibrary.type.dto.ResponseModel;
 import org.corodiak.capstonelibrary.type.etc.Category;
 import org.corodiak.capstonelibrary.type.vo.BookVo;
@@ -23,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class BookController {
 
 	private final BookService bookService;
+	private final BookApiService bookApiService;
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseModel bookAdd(
@@ -130,6 +133,16 @@ public class BookController {
 		bookService.returnBook(userSeq, bookSeq);
 
 		ResponseModel responseModel = ResponseModel.builder().build();
+		return responseModel;
+	}
+
+	@RequestMapping(value = "/isbn/{isbn}", method = RequestMethod.GET)
+	public ResponseModel searchByIsbn(
+		@PathVariable("isbn") String isbn
+	) {
+		BookInfo bookInfo = bookApiService.searchByIsbn(isbn);
+		ResponseModel responseModel = ResponseModel.builder().build();
+		responseModel.addData("bookData", bookInfo);
 		return responseModel;
 	}
 }

@@ -61,4 +61,15 @@ public class GroupController {
 		responseModel.addData("group", group);
 		return responseModel;
 	}
+
+	@RequestMapping(value = "/join/{seq}")
+	public ResponseModel groupJoin(
+		@PathVariable("seq") long seq,
+		@RequestParam(name = "authenticationCode", required = false, defaultValue = "") String authenticationCode
+	) {
+		long userSeq = AuthUtil.getAuthenticationInfoSeq();
+
+		ResponseModel responseModel = ResponseModel.builder().build();
+		return responseModel;
+	}
 }
