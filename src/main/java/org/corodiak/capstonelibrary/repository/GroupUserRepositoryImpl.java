@@ -3,6 +3,7 @@ package org.corodiak.capstonelibrary.repository;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.corodiak.capstonelibrary.type.entity.GroupUser;
 import org.corodiak.capstonelibrary.type.entity.QGroupUser;
@@ -22,8 +23,9 @@ public class GroupUserRepositoryImpl implements GroupUserRepository {
 	private QGroupUser qGroupUser = QGroupUser.groupUser;
 
 	@Override
+	@Transactional
 	public GroupUser save(GroupUser groupUser) {
-		entityManager.persist(entityManager);
+		entityManager.persist(groupUser);
 		return groupUser;
 	}
 

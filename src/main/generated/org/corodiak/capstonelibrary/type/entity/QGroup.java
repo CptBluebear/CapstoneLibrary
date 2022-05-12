@@ -36,6 +36,10 @@ public class QGroup extends EntityPathBase<Group> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
+    public final NumberPath<Double> latitude = createNumber("latitude", Double.class);
+
+    public final NumberPath<Double> longtitude = createNumber("longtitude", Double.class);
+
     public final StringPath name = createString("name");
 
     public final NumberPath<Long> seq = createNumber("seq", Long.class);

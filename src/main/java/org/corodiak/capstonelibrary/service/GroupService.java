@@ -18,4 +18,5 @@ public interface GroupService {
 
 	boolean addGroup(String name, boolean isOpen, String thumbnail, long userSeq, double longtitude, double latitude);
 
+	boolean athorizeAdmin(Long groupSeq, Long userSeq);
 }

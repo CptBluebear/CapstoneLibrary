@@ -68,7 +68,7 @@ public class GroupController {
 		return responseModel;
 	}
 
-	@RequestMapping(value = "/join")
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public ResponseModel groupJoin(
 		@RequestParam(name = "groupSeq", required = false, defaultValue = "-1") Long groupSeq,
 		@RequestParam(name = "authenticationCode", required = false, defaultValue = "") String authenticationCode
@@ -93,7 +93,7 @@ public class GroupController {
 		return responseModel;
 	}
 
-	@RequestMapping(value = "/resign")
+	@RequestMapping(value = "/resign", method = RequestMethod.DELETE)
 	public ResponseModel groupResign(
 		@RequestParam(name = "groupSeq") Long groupSeq
 	) {
@@ -102,8 +102,19 @@ public class GroupController {
 		if (groupUserService.findByUserSeqAndGroupSeq(userSeq, groupSeq)) {
 			throw new SearchResultNotExistException();
 		} else {
-			groupUserService.addGroupUser(groupSeq, userSeq);
+			groupUserService.removeGroupUser(userSeq, groupSeq);
 		}
+
+		ResponseModel responseModel = ResponseModel.builder().build();
+		return responseModel;
+	}
+
+	@RequestMapping(value = "/authorize", method = RequestMethod.PATCH)
+	public ResponseModel authrizeAdmin(
+		@RequestParam(name = "groupSeq") Long groupSeq,
+		@RequestParam(name = "userSeq") Long userSeq
+	) {
+		groupService.athorizeAdmin(groupSeq, userSeq);
 
 		ResponseModel responseModel = ResponseModel.builder().build();
 		return responseModel;

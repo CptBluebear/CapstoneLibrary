@@ -78,4 +78,18 @@ public class GroupServiceImpl implements GroupService {
 		locationService.addLocation(group.getSeq(), group.getName(), longtitude, latitude);
 		return true;
 	}
+
+	@Override
+	public boolean athorizeAdmin(Long groupSeq, Long userSeq){
+		Optional<Group> group = groupRepository.findBySeq(groupSeq);
+		if (!group.isPresent()) {
+			throw new SearchResultNotExistException();
+		}
+		Long result = groupRepository.authorizeAdmin(groupSeq, userSeq);
+
+		return result == 1;
+		// 이 함수를 호출한 자가 그룹의 어드민인지 체크
+		// 어드민으로 임명할 유저가 그룹의 소속인지 체크
+		// 어드민으로 임명할 유저가 이미 그룹의 어드민인지 체크
+	}
 }

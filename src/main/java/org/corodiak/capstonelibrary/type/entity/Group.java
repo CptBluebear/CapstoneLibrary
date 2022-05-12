@@ -3,6 +3,7 @@ package org.corodiak.capstonelibrary.type.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -67,7 +68,7 @@ public class Group extends BaseTimeEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
 	private List<Book> bookList = new ArrayList<>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private List<GroupUser> users = new ArrayList<>();
 
 	@Builder

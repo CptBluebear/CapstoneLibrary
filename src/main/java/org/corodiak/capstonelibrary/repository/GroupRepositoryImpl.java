@@ -70,7 +70,11 @@ public class GroupRepositoryImpl implements GroupRepository {
 	}
 
 	@Override
-	public Long authorizeAdmin(Long groupSeq, Long userSeq){
-		return null;
+	@Transactional
+	public Long authorizeAdmin(Long groupSeq, Long userSeq) {
+		return queryFactory.update(qGroup)
+			.set(qGroup.user.seq, userSeq)
+			.where(qGroup.seq.eq(groupSeq))
+			.execute();
 	}
 }
