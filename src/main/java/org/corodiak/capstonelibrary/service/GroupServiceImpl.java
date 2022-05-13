@@ -54,7 +54,7 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public Long findByAuthenticaionCode(String authenticationCode) {
+	public Long findByAuthenticationCode(String authenticationCode) {
 		Optional<Group> group = groupRepository.findByAuthenticationCode(authenticationCode);
 		if (group.isPresent()) {
 			return group.get().getSeq();
@@ -80,7 +80,7 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public boolean athorizeAdmin(Long groupSeq, Long userSeq){
+	public boolean authorizeAdmin(Long groupSeq, Long userSeq){
 		Optional<Group> group = groupRepository.findBySeq(groupSeq);
 		if (!group.isPresent()) {
 			throw new SearchResultNotExistException();

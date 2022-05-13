@@ -25,7 +25,7 @@ public class GroupUserRepositoryImpl implements GroupUserRepository {
 	@Override
 	@Transactional
 	public GroupUser save(GroupUser groupUser) {
-		entityManager.persist(groupUser);
+		entityManager.merge(groupUser);
 		return groupUser;
 	}
 

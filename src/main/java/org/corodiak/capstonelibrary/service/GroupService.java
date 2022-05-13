@@ -14,9 +14,9 @@ public interface GroupService {
 
 	List<GroupVo> findByUserSeq(long userSeq);
 
-	Long findByAuthenticaionCode(String authenticationCode);
+	Long findByAuthenticationCode(String authenticationCode);
 
 	boolean addGroup(String name, boolean isOpen, String thumbnail, long userSeq, double longtitude, double latitude);
 
-	boolean athorizeAdmin(Long groupSeq, Long userSeq);
+	boolean authorizeAdmin(Long groupSeq, Long userSeq);
 }

@@ -70,13 +70,13 @@ public class GroupController {
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public ResponseModel groupJoin(
-		@RequestParam(name = "groupSeq", required = false, defaultValue = "-1") Long groupSeq,
+		@RequestParam(name = "groupSeq", required = false, defaultValue = "-1") long groupSeq,
 		@RequestParam(name = "authenticationCode", required = false, defaultValue = "") String authenticationCode
 	) throws DuplicatedDataException {
 		long userSeq = AuthUtil.getAuthenticationInfoSeq();
 
 		if (groupSeq == -1) {
-			groupSeq = groupService.findByAuthenticaionCode(authenticationCode);
+			groupSeq = groupService.findByAuthenticationCode(authenticationCode);
 			if (groupSeq != -1) {
 				groupUserService.addGroupUser(groupSeq, userSeq);
 			}
@@ -95,11 +95,10 @@ public class GroupController {
 
 	@RequestMapping(value = "/resign", method = RequestMethod.DELETE)
 	public ResponseModel groupResign(
-		@RequestParam(name = "groupSeq") Long groupSeq
+		@RequestParam(name = "groupSeq") long groupSeq
 	) {
 		long userSeq = AuthUtil.getAuthenticationInfoSeq();
-
-		if (groupUserService.findByUserSeqAndGroupSeq(userSeq, groupSeq)) {
+		if (!groupUserService.findByUserSeqAndGroupSeq(userSeq, groupSeq)) {
 			throw new SearchResultNotExistException();
 		} else {
 			groupUserService.removeGroupUser(userSeq, groupSeq);
@@ -114,7 +113,7 @@ public class GroupController {
 		@RequestParam(name = "groupSeq") Long groupSeq,
 		@RequestParam(name = "userSeq") Long userSeq
 	) {
-		groupService.athorizeAdmin(groupSeq, userSeq);
+		groupService.authorizeAdmin(groupSeq, userSeq);
 
 		ResponseModel responseModel = ResponseModel.builder().build();
 		return responseModel;
