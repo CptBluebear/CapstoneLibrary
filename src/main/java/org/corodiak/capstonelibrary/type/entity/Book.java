@@ -57,7 +57,7 @@ public class Book extends BaseTimeEntity {
 	private String isbn;
 
 	@Column(
-		nullable = false,
+		nullable = true,
 		length = 30
 	)
 	private String code;

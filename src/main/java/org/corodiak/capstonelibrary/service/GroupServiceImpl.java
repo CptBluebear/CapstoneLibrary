@@ -9,6 +9,7 @@ import org.corodiak.capstonelibrary.repository.GroupRepository;
 import org.corodiak.capstonelibrary.type.entity.Group;
 import org.corodiak.capstonelibrary.type.entity.User;
 import org.corodiak.capstonelibrary.type.vo.GroupVo;
+import org.corodiak.capstonelibrary.util.AuthenticationCodeGenerator;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class GroupServiceImpl implements GroupService {
 
 	private final GroupRepository groupRepository;
 	private final LocationService locationService;
+	private final AuthenticationCodeGenerator authenticationCodeGenerator;
 
 	@Override
 	public GroupVo findBySeq(long seq) {
@@ -69,7 +71,7 @@ public class GroupServiceImpl implements GroupService {
 			.name(name)
 			.isOpen(isOpen)
 			.thumbnail(thumbnail)
-			.authenticationCode("TEST")
+			.authenticationCode(authenticationCodeGenerator.generate())
 			.user(User.builder().seq(userSeq).build())
 			.longtitude(longtitude)
 			.latitude(latitude)

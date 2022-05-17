@@ -15,6 +15,7 @@ import org.corodiak.capstonelibrary.type.entity.User;
 import org.corodiak.capstonelibrary.type.etc.BookLogStatus;
 import org.corodiak.capstonelibrary.type.etc.Category;
 import org.corodiak.capstonelibrary.type.vo.BookVo;
+import org.corodiak.capstonelibrary.util.CodeGenerator;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class BookServiceImpl implements BookService {
 
 	private final BookRepository bookRepository;
 	private final BookLogService bookLogService;
+	private final CodeGenerator codeGenerator;
 
 	@Override
 	public List<BookVo> findAll(long start, long display) {
@@ -45,6 +47,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	@Transactional
 	public boolean addBook(String title, String author, String publisher, String isbn, String thumbnail,
 		LocalDate publishDate, String description, Category category, Long userSeq, Long groupSeq) {
 		Book book = Book.builder()
@@ -60,6 +63,7 @@ public class BookServiceImpl implements BookService {
 			.group(Group.builder().seq(groupSeq).build())
 			.build();
 		book = bookRepository.save(book);
+		book.setCode(codeGenerator.generate(Long.toString(book.getGroup().getSeq()), Long.toString(book.getSeq())));
 		return true;
 	}
 
