@@ -1,25 +1,40 @@
 package org.corodiak.capstonelibrary.util;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
+import org.springframework.core.io.ClassPathResource;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class NicknameGenerator {
 
 	private List<String> adjList;
 	private List<String> nounList;
 	private Random random;
 
+
 	public NicknameGenerator() throws IOException {
-		String resourceAdj = getClass().getClassLoader().getResource("static/adj.csv").getFile();
-		String resourceNoun = getClass().getClassLoader().getResource("static/noun.csv").getFile();
-		Path adjPath = new File(resourceAdj).toPath();
-		Path nounPath = new File(resourceNoun).toPath();
-		adjList = Files.readAllLines(adjPath);
-		nounList = Files.readAllLines(nounPath);
+		InputStream inputStreamAdj = new ClassPathResource("static/adj.csv").getInputStream();
+		InputStream inputStreamNoun = new ClassPathResource("static/noun.csv").getInputStream();
+		adjList = new ArrayList<>();
+		nounList = new ArrayList<>();
+
+		Scanner adjScanner = new Scanner(inputStreamAdj);
+		Scanner nounScanner = new Scanner(inputStreamNoun);
+
+		while (adjScanner.hasNext()) {
+			adjList.add(adjScanner.nextLine());
+		}
+		while (nounScanner.hasNext()) {
+			nounList.add(nounScanner.nextLine());
+		}
+
 		random = new Random();
 	}
 
