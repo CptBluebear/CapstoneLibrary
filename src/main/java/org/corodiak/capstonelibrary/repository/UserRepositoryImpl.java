@@ -51,4 +51,13 @@ public class UserRepositoryImpl implements UserRepository {
 		Optional<User> result = Optional.ofNullable(user);
 		return result;
 	}
+
+	@Override
+	@Transactional
+	public Long updateNicknameBySeq(Long seq, String nickname) {
+		return jpaQueryFactory.update(qUser)
+			.set(qUser.nickname, nickname)
+			.where(qUser.seq.eq(seq))
+			.execute();
+	}
 }

@@ -10,4 +10,6 @@ public interface UserRepository {
 	User save(User user);
 
 	Optional<User> findBySeqWithBookList(Long seq);
+
+	Long updateNicknameBySeq(Long seq, String nickname);
 }
