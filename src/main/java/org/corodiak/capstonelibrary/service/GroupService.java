@@ -16,7 +16,7 @@ public interface GroupService {
 
 	Long findByAuthenticationCode(String authenticationCode);
 
-	boolean addGroup(String name, boolean isOpen, String thumbnail, long userSeq, double longtitude, double latitude);
+	boolean addGroup(String name, boolean isOpen, String thumbnail, String description, long userSeq, double longtitude, double latitude);
 
 	boolean authorizeAdmin(Long groupSeq, Long userSeq);
 }

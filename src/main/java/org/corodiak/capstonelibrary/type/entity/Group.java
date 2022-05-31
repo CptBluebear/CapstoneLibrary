@@ -61,6 +61,9 @@ public class Group extends BaseTimeEntity {
 	)
 	private String thumbnail;
 
+	@Column
+	private String description;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_seq")
 	private User user;
@@ -73,12 +76,13 @@ public class Group extends BaseTimeEntity {
 
 	@Builder
 	public Group(Long seq, String name, boolean isOpen, String authenticationCode, String thumbnail,
-		User user, double longtitude, double latitude) {
+		String description, User user, double longtitude, double latitude) {
 		this.seq = seq;
 		this.name = name;
 		this.isOpen = isOpen;
 		this.authenticationCode = authenticationCode;
 		this.thumbnail = thumbnail;
+		this.description = description;
 		this.user = user;
 		this.longtitude = longtitude;
 		this.latitude = latitude;

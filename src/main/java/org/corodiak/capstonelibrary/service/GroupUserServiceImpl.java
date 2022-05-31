@@ -1,5 +1,7 @@
 package org.corodiak.capstonelibrary.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -8,6 +10,7 @@ import org.corodiak.capstonelibrary.repository.GroupUserRepository;
 import org.corodiak.capstonelibrary.type.entity.Group;
 import org.corodiak.capstonelibrary.type.entity.GroupUser;
 import org.corodiak.capstonelibrary.type.entity.User;
+import org.corodiak.capstonelibrary.type.vo.UserVo;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -41,5 +44,15 @@ public class GroupUserServiceImpl implements GroupUserService {
 	public boolean findByUserSeqAndGroupSeq(Long userSeq, Long groupSeq) {
 		Optional<GroupUser> groupUser = groupUserRepository.findByUserSeqAndGroupSeq(userSeq, groupSeq);
 		return groupUser.isPresent();
+	}
+
+	@Override
+	public List<UserVo> findUserByGroupSeq(Long groupSeq){
+		List<GroupUser> groupUserList = groupUserRepository.findUserByGroupSeq(groupSeq);
+		List<UserVo> results = new ArrayList<>();
+		for (GroupUser gu : groupUserList) {
+			results.add(new UserVo(gu.getUser()));
+		}
+		return results;
 	}
 }

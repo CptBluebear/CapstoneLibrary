@@ -16,6 +16,7 @@ public class GroupVo {
 	private String name;
 	private boolean isOpen;
 	private String thumbnail;
+	private String description;
 	private String authenticationCode;
 
 	public GroupVo(Group entity) {
@@ -23,6 +24,7 @@ public class GroupVo {
 		this.name = entity.getName();
 		this.isOpen = entity.isOpen();
 		this.thumbnail = entity.getThumbnail();
+		this.description = entity.getDescription();
 		this.authenticationCode = entity.getAuthenticationCode();
 	}
 

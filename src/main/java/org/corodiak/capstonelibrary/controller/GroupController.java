@@ -9,6 +9,7 @@ import org.corodiak.capstonelibrary.service.GroupService;
 import org.corodiak.capstonelibrary.service.GroupUserService;
 import org.corodiak.capstonelibrary.type.dto.ResponseModel;
 import org.corodiak.capstonelibrary.type.vo.GroupVo;
+import org.corodiak.capstonelibrary.type.vo.UserVo;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,11 +33,12 @@ public class GroupController {
 		@RequestParam("name") String name,
 		@RequestParam("isOpen") boolean isOpen,
 		@RequestParam("thumbnail") String thumbnail,
+		@RequestParam("description") String description,
 		@RequestParam("longtitude") double longtitude,
 		@RequestParam("latitude") double latitude
 	) {
 		long userSeq = AuthUtil.getAuthenticationInfoSeq();
-		groupService.addGroup(name, isOpen, thumbnail, userSeq, longtitude, latitude);
+		groupService.addGroup(name, isOpen, thumbnail, description, userSeq, longtitude, latitude);
 		ResponseModel responseModel = ResponseModel.builder().build();
 		return responseModel;
 	}
@@ -116,6 +118,16 @@ public class GroupController {
 		groupService.authorizeAdmin(groupSeq, userSeq);
 
 		ResponseModel responseModel = ResponseModel.builder().build();
+		return responseModel;
+	}
+
+	@RequestMapping(value = "/userlist", method = RequestMethod.GET)
+	public ResponseModel joinedUserListGet(
+		@RequestParam("groupSeq") Long groupSeq
+	) {
+		List<UserVo> userList = groupUserService.findUserByGroupSeq(groupSeq);
+		ResponseModel responseModel = ResponseModel.builder().build();
+		responseModel.addData("userList", userList);
 		return responseModel;
 	}
 }

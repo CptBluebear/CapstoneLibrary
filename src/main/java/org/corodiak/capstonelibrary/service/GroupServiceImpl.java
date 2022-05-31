@@ -65,12 +65,13 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public boolean addGroup(String name, boolean isOpen, String thumbnail, long userSeq, double longtitude,
-		double latitude) {
+	public boolean addGroup(String name, boolean isOpen, String thumbnail, String description,
+		long userSeq, double longtitude, double latitude) {
 		Group group = Group.builder()
 			.name(name)
 			.isOpen(isOpen)
 			.thumbnail(thumbnail)
+			.description(description)
 			.authenticationCode(authenticationCodeGenerator.generate())
 			.user(User.builder().seq(userSeq).build())
 			.longtitude(longtitude)
