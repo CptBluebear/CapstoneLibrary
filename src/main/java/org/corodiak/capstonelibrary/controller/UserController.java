@@ -7,6 +7,7 @@ import org.corodiak.capstonelibrary.service.UserService;
 import org.corodiak.capstonelibrary.type.dto.ResponseModel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -32,4 +33,13 @@ public class UserController {
 		return responseModel;
 	}
 
+	@RequestMapping(value = "/nickname", method = RequestMethod.PATCH)
+	public ResponseModel modifyNickname(
+		@RequestParam(name = "nickname") String nickname
+	) {
+		Long seq = AuthUtil.getAuthenticationInfoSeq();
+		userService.updateNicknameByUserSeq(seq, nickname);
+		ResponseModel responseModel = ResponseModel.builder().build();
+		return responseModel;
+	}
 }
