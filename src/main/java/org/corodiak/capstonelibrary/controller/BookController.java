@@ -114,10 +114,9 @@ public class BookController {
 
 	@RequestMapping(value = "/borrow", method = RequestMethod.PATCH)
 	public ResponseModel borrowBook(
+		@RequestParam("userSeq") Long userSeq,
 		@RequestParam("bookSeq") Long bookSeq
 	) {
-		long userSeq = AuthUtil.getAuthenticationInfoSeq();
-
 		bookService.borrowBook(userSeq, bookSeq);
 
 		ResponseModel responseModel = ResponseModel.builder().build();
@@ -126,10 +125,9 @@ public class BookController {
 
 	@RequestMapping(value = "/return", method = RequestMethod.PATCH)
 	public ResponseModel returnBook(
+		@RequestParam("userSeq") Long userSeq,
 		@RequestParam("bookSeq") Long bookSeq
 	) {
-		long userSeq = AuthUtil.getAuthenticationInfoSeq();
-
 		bookService.returnBook(userSeq, bookSeq);
 
 		ResponseModel responseModel = ResponseModel.builder().build();
