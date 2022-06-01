@@ -1,5 +1,6 @@
 package org.corodiak.capstonelibrary.type.vo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class GroupVo {
 	private String thumbnail;
 	private String description;
 	private String authenticationCode;
+	private LocalDateTime createdDate;
 
 	public GroupVo(Group entity) {
 		this.seq = entity.getSeq();
@@ -26,6 +28,7 @@ public class GroupVo {
 		this.thumbnail = entity.getThumbnail();
 		this.description = entity.getDescription();
 		this.authenticationCode = entity.getAuthenticationCode();
+		this.createdDate = entity.getCreatedDate();
 	}
 
 	@Getter
