@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class GroupServiceImpl implements GroupService {
 
 	private final GroupRepository groupRepository;
+	private final GroupUserService groupUserService;
 	private final LocationService locationService;
 	private final AuthenticationCodeGenerator authenticationCodeGenerator;
 
@@ -77,7 +78,8 @@ public class GroupServiceImpl implements GroupService {
 			.longtitude(longtitude)
 			.latitude(latitude)
 			.build();
-		groupRepository.save(group);
+		group = groupRepository.save(group);
+		groupUserService.addGroupUser(group.getSeq(), userSeq);
 		locationService.addLocation(group.getSeq(), group.getName(), longtitude, latitude);
 		return true;
 	}
