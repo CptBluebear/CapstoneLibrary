@@ -143,4 +143,15 @@ public class BookController {
 		responseModel.addData("bookData", bookInfo);
 		return responseModel;
 	}
+
+	@RequestMapping(value = {"/search"}, method = RequestMethod.GET)
+	public ResponseModel bookSearch(
+		@RequestParam("keyword") String keyword,
+		@RequestParam(name = "category", required = false, defaultValue = "-1") String category
+	) {
+		List<BookVo> bookList = bookService.searchBook(keyword, category);
+		ResponseModel responseModel = ResponseModel.builder().build();
+		responseModel.addData("bookList", bookList);
+		return responseModel;
+	}
 }

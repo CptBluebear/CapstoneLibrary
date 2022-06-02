@@ -20,4 +20,6 @@ public interface GroupRepository {
 	Optional<Group> findByAuthenticationCode(String authenticationCode);
 
 	Long authorizeAdmin(Long groupSeq, Long userSeq);
+
+	List<Group> search(String keyword);
 }

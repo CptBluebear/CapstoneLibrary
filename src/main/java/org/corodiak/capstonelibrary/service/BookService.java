@@ -26,4 +26,6 @@ public interface BookService {
 	boolean borrowBook(Long userSeq, Long bookSeq);
 
 	boolean returnBook(Long userSeq, Long bookSeq);
+
+	List<BookVo> searchBook(String keyword, String category);
 }

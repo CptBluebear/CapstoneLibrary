@@ -77,4 +77,12 @@ public class GroupRepositoryImpl implements GroupRepository {
 			.where(qGroup.seq.eq(groupSeq))
 			.execute();
 	}
+
+	@Override
+	public List<Group> search(String keyword) {
+		List<Group> results = queryFactory.selectFrom(qGroup)
+			.where(qGroup.name.contains(keyword).or(qGroup.description.contains(keyword)))
+			.fetch();
+		return results;
+	}
 }

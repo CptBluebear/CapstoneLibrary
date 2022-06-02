@@ -130,4 +130,14 @@ public class GroupController {
 		responseModel.addData("userList", userList);
 		return responseModel;
 	}
+
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ResponseModel groupSearch(
+		@RequestParam("keyword") String keyword
+	) {
+		List<GroupVo> groupList = groupService.searchGroup(keyword);
+		ResponseModel responseModel = ResponseModel.builder().build();
+		responseModel.addData("groupList", groupList);
+		return responseModel;
+	}
 }

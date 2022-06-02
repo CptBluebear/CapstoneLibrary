@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.corodiak.capstonelibrary.type.entity.Book;
 import org.corodiak.capstonelibrary.type.entity.QBook;
+import org.corodiak.capstonelibrary.type.etc.Category;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -91,5 +92,21 @@ public class BookRepositoryImpl implements BookRepository {
 			.set(qBook.isRental, false)
 			.where(qBook.seq.eq(seq))
 			.execute();
+	}
+
+	@Override
+	public List<Book> search(String keyword, String category) {
+		List<Book> results = null;
+		if (category.equals("-1")) {
+			results = queryFactory.selectFrom(qBook)
+				.where(qBook.title.contains(keyword).or(qBook.description.contains(keyword)))
+				.fetch();
+		} else {
+			results = queryFactory.selectFrom(qBook)
+				.where(qBook.title.contains(keyword).and(qBook.category.eq(Category.ofCode(category)))
+					.or(qBook.description.contains(keyword).and(qBook.category.eq(Category.ofCode(category)))))
+				.fetch();
+		}
+		return results;
 	}
 }

@@ -97,7 +97,7 @@ public class BookServiceImpl implements BookService {
 		LocalDate publishDate, String description, Category category) {
 
 		Optional<Book> book = bookRepository.findBySeq(seq);
-		if(!book.isPresent()) {
+		if (!book.isPresent()) {
 			throw new SearchResultNotExistException();
 		}
 
@@ -115,9 +115,9 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public boolean borrowBook(Long userSeq, Long bookSeq){
+	public boolean borrowBook(Long userSeq, Long bookSeq) {
 		Optional<Book> book = bookRepository.findBySeq(bookSeq);
-		if(!book.isPresent()) {
+		if (!book.isPresent()) {
 			throw new SearchResultNotExistException();
 		}
 
@@ -127,14 +127,23 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public boolean returnBook(Long userSeq, Long bookSeq){
+	public boolean returnBook(Long userSeq, Long bookSeq) {
 		Optional<Book> book = bookRepository.findBySeq(bookSeq);
-		if(!book.isPresent()) {
+		if (!book.isPresent()) {
 			throw new SearchResultNotExistException();
 		}
 
 		long result = bookRepository.returnBook(bookSeq);
 		bookLogService.addBookLog(BookLogStatus.RETURN, userSeq, bookSeq, book.get().getGroup().getSeq());
 		return result == 1;
+	}
+
+	@Override
+	public List<BookVo> searchBook(String keyword, String category) {
+		List<Book> bookList = bookRepository.search(keyword, category);
+		List<BookVo> results = bookList.stream()
+			.map(e -> new BookVo(e))
+			.collect(Collectors.toList());
+		return results;
 	}
 }

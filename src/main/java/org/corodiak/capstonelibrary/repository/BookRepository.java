@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.corodiak.capstonelibrary.type.entity.Book;
+import org.corodiak.capstonelibrary.type.etc.Category;
 
 public interface BookRepository {
 
@@ -22,4 +23,6 @@ public interface BookRepository {
 	Long borrowBook(Long seq);
 
 	Long returnBook(Long seq);
+
+	List<Book> search(String keyword, String category);
 }
