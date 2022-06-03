@@ -26,7 +26,7 @@ public class LocationSearchTest {
 		seq.add(1L);
 		seq.add(3L);
 		List<Group> results = groupRepository.searchInList("TRA", seq);
-		for(Group g:results) {
+		for (Group g : results) {
 			System.out.println(g.getSeq());
 		}
 	}

@@ -108,7 +108,8 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public List<GroupVo> searchGroupByKeywordAndLocation(String keyword, double longitude, double latitude, int distance) {
+	public List<GroupVo> searchGroupByKeywordAndLocation(String keyword, double longitude, double latitude,
+		int distance) {
 		Map<Long, LocationPointVo> map = locationService.findByLocationAndDistance(longitude, latitude, distance);
 		List<Long> groupSeqList = new ArrayList<>(map.keySet());
 		List<Group> groupList = groupRepository.searchInList(keyword, groupSeqList);

@@ -47,7 +47,7 @@ public class GroupUserServiceImpl implements GroupUserService {
 	}
 
 	@Override
-	public List<UserVo> findUserByGroupSeq(Long groupSeq){
+	public List<UserVo> findUserByGroupSeq(Long groupSeq) {
 		List<GroupUser> groupUserList = groupUserRepository.findUserByGroupSeq(groupSeq);
 		List<UserVo> results = new ArrayList<>();
 		for (GroupUser gu : groupUserList) {

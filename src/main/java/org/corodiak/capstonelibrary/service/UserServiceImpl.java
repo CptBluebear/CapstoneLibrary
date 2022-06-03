@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String findNicknameByUserSeq(Long userSeq) {
 		Optional<User> user = userRepository.findBySeq(userSeq);
-		if(!user.isPresent()) {
+		if (!user.isPresent()) {
 			throw new SearchResultNotExistException();
 		}
 		return user.get().getNickname();
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	public List<String> findEmailByUserSeq(Long userSeq) {
 		List<OAuthUser> results = oAuthUserRepository.findByUserSeq(userSeq);
 		List<String> emails = new ArrayList<>();
-		for(OAuthUser oAuthUser:results) {
+		for (OAuthUser oAuthUser : results) {
 			emails.add(oAuthUser.getEmail());
 		}
 		return emails;

@@ -18,7 +18,6 @@ public class NicknameGenerator {
 	private List<String> nounList;
 	private Random random;
 
-
 	public NicknameGenerator() throws IOException {
 		InputStream inputStreamAdj = new ClassPathResource("static/adj.csv").getInputStream();
 		InputStream inputStreamNoun = new ClassPathResource("static/noun.csv").getInputStream();

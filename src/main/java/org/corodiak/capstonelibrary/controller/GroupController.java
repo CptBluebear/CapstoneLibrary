@@ -153,7 +153,8 @@ public class GroupController {
 		@RequestParam("latitude") double latitude,
 		@RequestParam(value = "distance", required = false, defaultValue = "3000") int distance
 	) {
-		List<GroupVo> groupVoList = groupService.searchGroupByKeywordAndLocation(keyword, longitude, latitude, distance);
+		List<GroupVo> groupVoList = groupService.searchGroupByKeywordAndLocation(keyword, longitude, latitude,
+			distance);
 		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("groupList", groupVoList);
 		return responseModel;

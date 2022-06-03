@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface OAuthUserRepository extends JpaRepository<OAuthUser, Long> {
 
 	Optional<OAuthUser> findByProviderUserIdAndOap(String providerUserId, OAuthProvider oap);
+
 	List<OAuthUser> findByUserSeq(Long userSeq);
 
 }
