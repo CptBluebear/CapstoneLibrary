@@ -146,7 +146,7 @@ public class GroupController {
 		return responseModel;
 	}
 
-	@RequestMapping(value = "/search/location")
+	@RequestMapping(value = "/search/location", method = RequestMethod.GET)
 	public ResponseModel groupSearchByKeywordAndLocation(
 		@RequestParam("keyword") String keyword,
 		@RequestParam("longitude") double longitude,
