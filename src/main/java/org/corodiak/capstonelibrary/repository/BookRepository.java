@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.corodiak.capstonelibrary.type.entity.Book;
-import org.corodiak.capstonelibrary.type.etc.Category;
 
 public interface BookRepository {
 

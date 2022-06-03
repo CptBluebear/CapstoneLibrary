@@ -1,7 +1,5 @@
 package org.corodiak.capstonelibrary.config;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
@@ -10,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Configuration
 @EnableEncryptableProperties

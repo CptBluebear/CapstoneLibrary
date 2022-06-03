@@ -4,11 +4,8 @@ import java.util.Random;
 
 import org.corodiak.capstonelibrary.type.dto.ResponseModel;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import net.bytebuddy.utility.RandomString;
-
-import com.google.gson.Gson;
 
 class CapstoneLibraryApplicationTests {
 

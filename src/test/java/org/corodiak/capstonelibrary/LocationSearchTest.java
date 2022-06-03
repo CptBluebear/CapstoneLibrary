@@ -3,7 +3,6 @@ package org.corodiak.capstonelibrary;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.corodiak.capstonelibrary.repository.GroupRepository;
 import org.corodiak.capstonelibrary.repository.GroupRepositoryImpl;
 import org.corodiak.capstonelibrary.type.entity.Group;
 import org.junit.jupiter.api.Test;

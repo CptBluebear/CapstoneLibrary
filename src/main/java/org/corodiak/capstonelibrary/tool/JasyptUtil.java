@@ -1,10 +1,10 @@
 package org.corodiak.capstonelibrary.tool;
 
+import java.util.Scanner;
+
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.registry.AlgorithmRegistry;
-
-import java.util.Scanner;
 
 public class JasyptUtil {
 	public static void main(String[] args) {

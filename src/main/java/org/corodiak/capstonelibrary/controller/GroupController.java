@@ -1,7 +1,6 @@
 package org.corodiak.capstonelibrary.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.corodiak.capstonelibrary.Exception.DuplicatedDataException;
 import org.corodiak.capstonelibrary.Exception.SearchResultNotExistException;
@@ -10,12 +9,7 @@ import org.corodiak.capstonelibrary.service.GroupService;
 import org.corodiak.capstonelibrary.service.GroupUserService;
 import org.corodiak.capstonelibrary.service.LocationService;
 import org.corodiak.capstonelibrary.type.dto.ResponseModel;
-import org.corodiak.capstonelibrary.type.entity.Group;
-import org.corodiak.capstonelibrary.type.vo.GroupVo;
-import org.corodiak.capstonelibrary.type.vo.LocationPointVo;
 import org.corodiak.capstonelibrary.type.vo.UserVo;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

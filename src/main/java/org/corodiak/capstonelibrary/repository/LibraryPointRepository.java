@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.corodiak.capstonelibrary.type.entity.LocationPoint;
-import org.springframework.stereotype.Repository;
 
 public interface LibraryPointRepository {
 
