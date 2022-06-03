@@ -1,14 +1,18 @@
 package org.corodiak.capstonelibrary.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.corodiak.capstonelibrary.Exception.DuplicatedDataException;
 import org.corodiak.capstonelibrary.Exception.SearchResultNotExistException;
 import org.corodiak.capstonelibrary.auth.util.AuthUtil;
 import org.corodiak.capstonelibrary.service.GroupService;
 import org.corodiak.capstonelibrary.service.GroupUserService;
+import org.corodiak.capstonelibrary.service.LocationService;
 import org.corodiak.capstonelibrary.type.dto.ResponseModel;
+import org.corodiak.capstonelibrary.type.entity.Group;
 import org.corodiak.capstonelibrary.type.vo.GroupVo;
+import org.corodiak.capstonelibrary.type.vo.LocationPointVo;
 import org.corodiak.capstonelibrary.type.vo.UserVo;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -27,6 +31,7 @@ public class GroupController {
 
 	private final GroupService groupService;
 	private final GroupUserService groupUserService;
+	private final LocationService locationService;
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseModel groupAdd(
@@ -138,6 +143,19 @@ public class GroupController {
 		List<GroupVo> groupList = groupService.searchGroup(keyword);
 		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("groupList", groupList);
+		return responseModel;
+	}
+
+	@RequestMapping(value = "/search/location")
+	public ResponseModel groupSearchByKeywordAndLocation(
+		@RequestParam("keyword") String keyword,
+		@RequestParam("longitude") double longitude,
+		@RequestParam("latitude") double latitude,
+		@RequestParam(value = "distance", required = false, defaultValue = "3000") int distance
+	) {
+		List<GroupVo> groupVoList = groupService.searchGroupByKeywordAndLocation(keyword, longitude, latitude, distance);
+		ResponseModel responseModel = ResponseModel.builder().build();
+		responseModel.addData("groupList", groupVoList);
 		return responseModel;
 	}
 }

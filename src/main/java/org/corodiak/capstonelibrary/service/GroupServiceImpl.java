@@ -1,6 +1,8 @@
 package org.corodiak.capstonelibrary.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -9,6 +11,7 @@ import org.corodiak.capstonelibrary.repository.GroupRepository;
 import org.corodiak.capstonelibrary.type.entity.Group;
 import org.corodiak.capstonelibrary.type.entity.User;
 import org.corodiak.capstonelibrary.type.vo.GroupVo;
+import org.corodiak.capstonelibrary.type.vo.LocationPointVo;
 import org.corodiak.capstonelibrary.util.AuthenticationCodeGenerator;
 import org.springframework.stereotype.Service;
 
@@ -98,6 +101,17 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public List<GroupVo> searchGroup(String keyword) {
 		List<Group> groupList = groupRepository.search(keyword);
+		List<GroupVo> results = groupList.stream()
+			.map(e -> new GroupVo(e))
+			.collect(Collectors.toList());
+		return results;
+	}
+
+	@Override
+	public List<GroupVo> searchGroupByKeywordAndLocation(String keyword, double longitude, double latitude, int distance) {
+		Map<Long, LocationPointVo> map = locationService.findByLocationAndDistance(longitude, latitude, distance);
+		List<Long> groupSeqList = new ArrayList<>(map.keySet());
+		List<Group> groupList = groupRepository.searchInList(keyword, groupSeqList);
 		List<GroupVo> results = groupList.stream()
 			.map(e -> new GroupVo(e))
 			.collect(Collectors.toList());

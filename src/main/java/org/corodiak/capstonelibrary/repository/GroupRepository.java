@@ -22,4 +22,6 @@ public interface GroupRepository {
 	Long authorizeAdmin(Long groupSeq, Long userSeq);
 
 	List<Group> search(String keyword);
+
+	List<Group> searchInList(String keyword, List<Long> seq);
 }

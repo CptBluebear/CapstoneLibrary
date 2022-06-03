@@ -37,6 +37,7 @@ public class ControllerExceptionHandler {
 		MaxUploadSizeExceededException.class
 	})
 	public ResponseModel fileUploadError(HttpServletRequest request, HttpServletResponse response, Exception e) {
+		e.printStackTrace();
 		ResponseModel responseModel = ResponseModel.builder()
 			.httpStatus(HttpStatus.BAD_REQUEST)
 			.message("파일 업로드에 오류가 발생했습니다.")

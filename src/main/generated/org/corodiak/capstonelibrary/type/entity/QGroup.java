@@ -31,6 +31,8 @@ public class QGroup extends EntityPathBase<Group> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
+    public final StringPath description = createString("description");
+
     public final BooleanPath isOpen = createBoolean("isOpen");
 
     //inherited

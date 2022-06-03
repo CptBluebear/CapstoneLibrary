@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.corodiak.capstonelibrary.type.entity.Group;
+import org.corodiak.capstonelibrary.type.entity.QBook;
 import org.corodiak.capstonelibrary.type.entity.QGroup;
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +23,7 @@ public class GroupRepositoryImpl implements GroupRepository {
 	private final JPAQueryFactory queryFactory;
 
 	QGroup qGroup = QGroup.group;
+	QBook qBook = QBook.book;
 
 	@Override
 	@Transactional
@@ -84,5 +86,14 @@ public class GroupRepositoryImpl implements GroupRepository {
 			.where(qGroup.name.contains(keyword).or(qGroup.description.contains(keyword)))
 			.fetch();
 		return results;
+	}
+
+	@Override
+	public List<Group> searchInList(String keyword, List<Long> seq) {
+		return queryFactory.selectFrom(qGroup)
+			.leftJoin(qBook)
+			.on(qGroup.eq(qBook.group))
+			.where(qBook.title.contains(keyword).and(qGroup.seq.in(seq)))
+			.fetch();
 	}
 }

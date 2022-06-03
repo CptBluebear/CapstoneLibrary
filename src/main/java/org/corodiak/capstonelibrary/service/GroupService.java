@@ -22,4 +22,6 @@ public interface GroupService {
 	boolean authorizeAdmin(Long groupSeq, Long userSeq);
 
 	List<GroupVo> searchGroup(String keyword);
+
+	List<GroupVo> searchGroupByKeywordAndLocation(String keyword, double longitude, double latitude, int distance);
 }
