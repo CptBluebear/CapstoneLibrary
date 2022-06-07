@@ -164,4 +164,14 @@ public class GroupController {
 		responseModel.addData("authenticationCode", authenticationCode);
 		return responseModel;
 	}
+
+	public ResponseModel groupCheckUserIsSigned(
+		@RequestParam("groupSeq") Long groupSeq
+	) {
+		Long userSeq = AuthUtil.getAuthenticationInfoSeq();
+		boolean result = groupUserService.checkUserIsSignedGroup(userSeq, groupSeq);
+		ResponseModel responseModel = ResponseModel.builder().build();
+		responseModel.addData("result", result);
+		return responseModel;
+	}
 }

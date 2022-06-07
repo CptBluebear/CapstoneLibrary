@@ -12,4 +12,6 @@ public interface GroupUserService {
 	boolean findByUserSeqAndGroupSeq(Long userSeq, Long groupSeq);
 
 	List<UserVo> findUserByGroupSeq(Long groupSeq);
+
+	boolean checkUserIsSignedGroup(Long userSeq, Long groupSeq);
 }

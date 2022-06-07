@@ -55,4 +55,10 @@ public class GroupUserServiceImpl implements GroupUserService {
 		}
 		return results;
 	}
+
+	@Override
+	public boolean checkUserIsSignedGroup(Long userSeq, Long groupSeq) {
+		Optional<GroupUser> groupUser = groupUserRepository.findByUserSeqAndGroupSeq(userSeq, groupSeq);
+		return groupUser.isPresent();
+	}
 }
