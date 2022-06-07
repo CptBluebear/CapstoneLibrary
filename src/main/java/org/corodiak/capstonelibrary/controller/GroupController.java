@@ -53,8 +53,11 @@ public class GroupController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ResponseModel openGroupList() {
-		List<GroupVo> groupList = groupService.findOpenGroup();
+	public ResponseModel openGroupList(
+		@RequestParam(value = "start", required = false, defaultValue = "0") long start,
+		@RequestParam(value = "display", required = false, defaultValue = "20") long display
+	) {
+		List<GroupVo> groupList = groupService.findOpenGroup(start, display);
 		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("groupList", groupList);
 		return responseModel;

@@ -8,7 +8,9 @@ public interface GroupService {
 
 	GroupVo findBySeq(long seq);
 
-	List<GroupVo> findOpenGroup();
+	//List<GroupVo> findOpenGroup();
+
+	List<GroupVo> findOpenGroup(long start, long display);
 
 	boolean removeGroup(long seq);
 

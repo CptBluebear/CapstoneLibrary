@@ -96,4 +96,12 @@ public class GroupRepositoryImpl implements GroupRepository {
 			.where(qBook.title.contains(keyword).and(qGroup.seq.in(seq)))
 			.fetch();
 	}
+
+	@Override
+	public List<Group> findGroupList(long start, long display) {
+		return queryFactory.selectFrom(qGroup)
+			.offset(start)
+			.limit(display)
+			.fetch();
+	}
 }
