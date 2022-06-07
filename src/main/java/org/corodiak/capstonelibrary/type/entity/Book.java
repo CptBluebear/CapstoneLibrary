@@ -77,7 +77,6 @@ public class Book extends BaseTimeEntity {
 		name = "rental_yn",
 		nullable = false
 	)
-	@ColumnDefault("'N'")
 	private boolean isRental;
 
 	@Convert(converter = CategoryConverter.class)
