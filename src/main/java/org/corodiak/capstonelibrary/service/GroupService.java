@@ -24,4 +24,6 @@ public interface GroupService {
 	List<GroupVo> searchGroup(String keyword);
 
 	List<GroupVo> searchGroupByKeywordAndLocation(String keyword, double longitude, double latitude, int distance);
+
+	String getAuthenticationCode(Long seq, Long userSeq);
 }

@@ -7,6 +7,8 @@ import java.util.List;
 import org.corodiak.capstonelibrary.type.entity.Book;
 import org.corodiak.capstonelibrary.type.entity.Group;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.ToString;
 
@@ -18,6 +20,7 @@ public class GroupVo {
 	private boolean isOpen;
 	private String thumbnail;
 	private String description;
+	@JsonIgnore
 	private String authenticationCode;
 	private LocalDateTime createdDate;
 

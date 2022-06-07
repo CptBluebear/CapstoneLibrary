@@ -6,6 +6,8 @@ import java.util.NoSuchElementException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.corodiak.capstonelibrary.Exception.ForbiddenRequestException;
+import org.corodiak.capstonelibrary.Exception.UnAuthorizeException;
 import org.corodiak.capstonelibrary.type.dto.ResponseModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -43,6 +45,27 @@ public class ControllerExceptionHandler {
 			.message("파일 업로드에 오류가 발생했습니다.")
 			.build();
 		response.setStatus(400);
+		return responseModel;
+	}
+
+	@ExceptionHandler(UnAuthorizeException.class)
+	public ResponseModel unAuthorizeRequestError(HttpServletRequest request, HttpServletResponse response,
+		Exception e) {
+		ResponseModel responseModel = ResponseModel.builder()
+			.httpStatus(HttpStatus.UNAUTHORIZED)
+			.message("인증되지 않은 사용자입니다.")
+			.build();
+		response.setStatus(401);
+		return responseModel;
+	}
+
+	@ExceptionHandler(ForbiddenRequestException.class)
+	public ResponseModel forbiddenRequestError(HttpServletRequest request, HttpServletResponse response, Exception e) {
+		ResponseModel responseModel = ResponseModel.builder()
+			.httpStatus(HttpStatus.FORBIDDEN)
+			.message("해당 요청에 권한이 없습니다.")
+			.build();
+		response.setStatus(403);
 		return responseModel;
 	}
 

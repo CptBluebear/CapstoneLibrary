@@ -9,6 +9,7 @@ import org.corodiak.capstonelibrary.service.GroupService;
 import org.corodiak.capstonelibrary.service.GroupUserService;
 import org.corodiak.capstonelibrary.service.LocationService;
 import org.corodiak.capstonelibrary.type.dto.ResponseModel;
+import org.corodiak.capstonelibrary.type.vo.GroupVo;
 import org.corodiak.capstonelibrary.type.vo.UserVo;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -151,6 +152,16 @@ public class GroupController {
 			distance);
 		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("groupList", groupVoList);
+		return responseModel;
+	}
+
+	public ResponseModel groupAuthenticationCodeGet(
+		@RequestParam("groupSeq") Long groupSeq
+	) {
+		Long userSeq = AuthUtil.getAuthenticationInfoSeq();
+		String authenticationCode = groupService.getAuthenticationCode(groupSeq, userSeq);
+		ResponseModel responseModel = ResponseModel.builder().build();
+		responseModel.addData("authenticationCode", authenticationCode);
 		return responseModel;
 	}
 }

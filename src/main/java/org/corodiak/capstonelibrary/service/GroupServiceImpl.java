@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.corodiak.capstonelibrary.Exception.ForbiddenRequestException;
 import org.corodiak.capstonelibrary.Exception.SearchResultNotExistException;
 import org.corodiak.capstonelibrary.repository.GroupRepository;
 import org.corodiak.capstonelibrary.type.entity.Group;
@@ -117,5 +118,19 @@ public class GroupServiceImpl implements GroupService {
 			.map(e -> new GroupVo(e))
 			.collect(Collectors.toList());
 		return results;
+	}
+
+	@Override
+	public String getAuthenticationCode(Long seq, Long userSeq) {
+		Optional<Group> group = groupRepository.findBySeq(seq);
+		if(!group.isPresent()) {
+			throw new SearchResultNotExistException();
+		}
+		Group result = group.get();
+		if(result.getUser().getSeq() != userSeq) {
+			throw new ForbiddenRequestException();
+		}
+
+		return result.getAuthenticationCode();
 	}
 }
