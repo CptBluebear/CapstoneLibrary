@@ -155,6 +155,7 @@ public class GroupController {
 		return responseModel;
 	}
 
+	@RequestMapping(value = "/authcode", method = RequestMethod.GET)
 	public ResponseModel groupAuthenticationCodeGet(
 		@RequestParam("groupSeq") Long groupSeq
 	) {
@@ -165,6 +166,7 @@ public class GroupController {
 		return responseModel;
 	}
 
+	@RequestMapping(value = "/signed", method = RequestMethod.GET)
 	public ResponseModel groupCheckUserIsSigned(
 		@RequestParam("groupSeq") Long groupSeq
 	) {

@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.corodiak.capstonelibrary.type.entity.GroupUser;
 import org.corodiak.capstonelibrary.type.entity.QGroupUser;
+import org.corodiak.capstonelibrary.type.entity.QUser;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -22,6 +23,7 @@ public class GroupUserRepositoryImpl implements GroupUserRepository {
 	private final JPAQueryFactory queryFactory;
 
 	private QGroupUser qGroupUser = QGroupUser.groupUser;
+	private QUser qUser = QUser.user;
 
 	@Override
 	@Transactional
@@ -50,6 +52,8 @@ public class GroupUserRepositoryImpl implements GroupUserRepository {
 	public List<GroupUser> findUserByGroupSeq(Long groupSeq) {
 		List<GroupUser> results = queryFactory.selectFrom(qGroupUser)
 			.where(qGroupUser.group.seq.eq(groupSeq))
+			.innerJoin(qGroupUser.user, qUser)
+			.fetchJoin()
 			.fetch();
 		return results;
 	}
