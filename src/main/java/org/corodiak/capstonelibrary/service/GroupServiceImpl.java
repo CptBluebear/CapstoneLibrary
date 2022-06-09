@@ -40,7 +40,7 @@ public class GroupServiceImpl implements GroupService {
 	public List<GroupVo> findOpenGroup() {
 		List<Group> groupList = groupRepository.findGroupIsOpen();
 		List<GroupVo> results = groupList.stream()
-			.map(e -> new GroupVo(e))
+			.map(e -> new GroupVo.GroupVoWithAdmin(e))
 			.collect(Collectors.toList());
 		return results;
 	}
@@ -55,7 +55,7 @@ public class GroupServiceImpl implements GroupService {
 	public List<GroupVo> findByUserSeq(long userSeq) {
 		List<Group> groupList = groupRepository.findByUserSeq(userSeq);
 		List<GroupVo> results = groupList.stream()
-			.map(e -> new GroupVo(e))
+			.map(e -> new GroupVo.GroupVoWithAdmin(e))
 			.collect(Collectors.toList());
 		return results;
 	}
@@ -103,7 +103,7 @@ public class GroupServiceImpl implements GroupService {
 	public List<GroupVo> searchGroup(String keyword) {
 		List<Group> groupList = groupRepository.search(keyword);
 		List<GroupVo> results = groupList.stream()
-			.map(e -> new GroupVo(e))
+			.map(e -> new GroupVo.GroupVoWithAdmin(e))
 			.collect(Collectors.toList());
 		return results;
 	}
@@ -115,7 +115,7 @@ public class GroupServiceImpl implements GroupService {
 		List<Long> groupSeqList = new ArrayList<>(map.keySet());
 		List<Group> groupList = groupRepository.searchInList(keyword, groupSeqList);
 		List<GroupVo> results = groupList.stream()
-			.map(e -> new GroupVo(e))
+			.map(e -> new GroupVo.GroupVoWithAdmin(e))
 			.collect(Collectors.toList());
 		return results;
 	}
