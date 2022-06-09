@@ -24,4 +24,6 @@ public interface GroupRepository {
 	List<Group> search(String keyword);
 
 	List<Group> searchInList(String keyword, List<Long> seq);
+
+	List<Group> findGroupList(long start, long display);
 }

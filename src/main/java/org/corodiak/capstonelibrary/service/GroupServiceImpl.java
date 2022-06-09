@@ -37,10 +37,18 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public List<GroupVo> findOpenGroup() {
+	public List<GroupVo> findOpenGroup(long start, long display) {
+		//임시로 기능전환
+		/*
 		List<Group> groupList = groupRepository.findGroupIsOpen();
 		List<GroupVo> results = groupList.stream()
 			.map(e -> new GroupVo.GroupVoWithAdmin(e))
+			.collect(Collectors.toList());
+		return results;
+		 */
+		List<Group> groupList = groupRepository.findGroupList(start, display);
+		List<GroupVo> results = groupList.stream()
+			.map(e -> new GroupVo(e))
 			.collect(Collectors.toList());
 		return results;
 	}
