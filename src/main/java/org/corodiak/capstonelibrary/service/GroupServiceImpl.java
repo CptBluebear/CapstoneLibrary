@@ -48,7 +48,7 @@ public class GroupServiceImpl implements GroupService {
 		 */
 		List<Group> groupList = groupRepository.findGroupList(start, display);
 		List<GroupVo> results = groupList.stream()
-			.map(e -> new GroupVo(e))
+			.map(e -> new GroupVo.GroupVoWithAdmin(e))
 			.collect(Collectors.toList());
 		return results;
 	}
