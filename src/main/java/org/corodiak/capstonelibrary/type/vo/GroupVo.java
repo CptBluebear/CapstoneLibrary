@@ -17,6 +17,8 @@ public class GroupVo {
 
 	private Long seq;
 	private String name;
+	private double longtitude;
+	private double latitude;
 	private boolean isOpen;
 	private String thumbnail;
 	private String description;
@@ -27,6 +29,8 @@ public class GroupVo {
 	public GroupVo(Group entity) {
 		this.seq = entity.getSeq();
 		this.name = entity.getName();
+		this.longtitude = entity.getLongtitude();
+		this.latitude = entity.getLatitude();
 		this.isOpen = entity.isOpen();
 		this.thumbnail = entity.getThumbnail();
 		this.description = entity.getDescription();
