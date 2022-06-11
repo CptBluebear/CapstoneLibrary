@@ -34,11 +34,11 @@ public class GroupController {
 		@RequestParam("isOpen") boolean isOpen,
 		@RequestParam("thumbnail") String thumbnail,
 		@RequestParam("description") String description,
-		@RequestParam("longtitude") double longtitude,
+		@RequestParam("longitude") double longitude,
 		@RequestParam("latitude") double latitude
 	) {
 		long userSeq = AuthUtil.getAuthenticationInfoSeq();
-		groupService.addGroup(name, isOpen, thumbnail, description, userSeq, longtitude, latitude);
+		groupService.addGroup(name, isOpen, thumbnail, description, userSeq, longitude, latitude);
 		ResponseModel responseModel = ResponseModel.builder().build();
 		return responseModel;
 	}
