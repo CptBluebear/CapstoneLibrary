@@ -38,7 +38,7 @@ public class Group extends BaseTimeEntity {
 	private String name;
 
 	@Column
-	double longtitude;
+	double longitude;
 
 	@Column
 	double latitude;
