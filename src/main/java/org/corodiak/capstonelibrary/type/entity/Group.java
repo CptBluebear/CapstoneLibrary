@@ -76,7 +76,7 @@ public class Group extends BaseTimeEntity {
 
 	@Builder
 	public Group(Long seq, String name, boolean isOpen, String authenticationCode, String thumbnail,
-		String description, User user, double longtitude, double latitude) {
+		String description, User user, double longitude, double latitude) {
 		this.seq = seq;
 		this.name = name;
 		this.isOpen = isOpen;
@@ -84,7 +84,7 @@ public class Group extends BaseTimeEntity {
 		this.thumbnail = thumbnail;
 		this.description = description;
 		this.user = user;
-		this.longtitude = longtitude;
+		this.longitude = longitude;
 		this.latitude = latitude;
 	}
 }
