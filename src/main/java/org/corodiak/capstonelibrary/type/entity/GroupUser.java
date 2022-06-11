@@ -1,5 +1,6 @@
 package org.corodiak.capstonelibrary.type.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class GroupUser extends BaseTimeEntity {
 
 	@Id
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "group_seq")
 	private Group group;
 

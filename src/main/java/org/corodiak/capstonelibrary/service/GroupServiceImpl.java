@@ -79,7 +79,7 @@ public class GroupServiceImpl implements GroupService {
 
 	@Override
 	public boolean addGroup(String name, boolean isOpen, String thumbnail, String description,
-		long userSeq, double longtitude, double latitude) {
+		long userSeq, double longitude, double latitude) {
 		Group group = Group.builder()
 			.name(name)
 			.isOpen(isOpen)
@@ -87,12 +87,12 @@ public class GroupServiceImpl implements GroupService {
 			.description(description)
 			.authenticationCode(authenticationCodeGenerator.generate())
 			.user(User.builder().seq(userSeq).build())
-			.longtitude(longtitude)
+			.longitude(longitude)
 			.latitude(latitude)
 			.build();
 		group = groupRepository.save(group);
 		groupUserService.addGroupUser(group.getSeq(), userSeq);
-		locationService.addLocation(group.getSeq(), group.getName(), longtitude, latitude);
+		locationService.addLocation(group.getSeq(), group.getName(), longitude, latitude);
 		return true;
 	}
 
