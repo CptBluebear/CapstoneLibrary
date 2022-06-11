@@ -82,12 +82,12 @@ public class Book extends BaseTimeEntity {
 	@Convert(converter = CategoryConverter.class)
 	private Category category;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_seq")
 	@JsonIgnore
 	private User user;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "group_seq")
 	private Group group;
 
