@@ -32,7 +32,7 @@ public class BookServiceImpl implements BookService {
 	public List<BookVo> findAll(long start, long display) {
 		List<Book> bookList = bookRepository.findAll(start, display);
 		List<BookVo> results = bookList.stream()
-			.map(e -> new BookVo(e))
+			.map(e -> new BookVo.BookVoWithUserAndGroup(e))
 			.collect(Collectors.toList());
 		return results;
 	}
@@ -41,7 +41,7 @@ public class BookServiceImpl implements BookService {
 	public BookVo findBook(long seq) {
 		Optional<Book> book = bookRepository.findBySeq(seq);
 		if (book.isPresent()) {
-			return new BookVo(book.get());
+			return new BookVo.BookVoWithUserAndGroup(book.get());
 		}
 		throw new SearchResultNotExistException();
 	}
@@ -71,7 +71,7 @@ public class BookServiceImpl implements BookService {
 	public List<BookVo> findByUserSeq(long seq, long start, long display) {
 		List<Book> bookList = bookRepository.findByUserSeq(seq, start, display);
 		List<BookVo> results = bookList.stream()
-			.map(e -> new BookVo(e))
+			.map(e -> new BookVo.BookVoWithUserAndGroup(e))
 			.collect(Collectors.toList());
 		return results;
 	}
@@ -80,7 +80,7 @@ public class BookServiceImpl implements BookService {
 	public List<BookVo> findByGroupSeq(long seq, long start, long display) {
 		List<Book> bookList = bookRepository.findByGroupSeq(seq, start, display);
 		List<BookVo> results = bookList.stream()
-			.map(e -> new BookVo(e))
+			.map(e -> new BookVo.BookVoWithUserAndGroup(e))
 			.collect(Collectors.toList());
 		return results;
 	}
@@ -142,7 +142,7 @@ public class BookServiceImpl implements BookService {
 	public List<BookVo> searchBook(String keyword, String category) {
 		List<Book> bookList = bookRepository.search(keyword, category);
 		List<BookVo> results = bookList.stream()
-			.map(e -> new BookVo(e))
+			.map(e -> new BookVo.BookVoWithUserAndGroup(e))
 			.collect(Collectors.toList());
 		return results;
 	}
