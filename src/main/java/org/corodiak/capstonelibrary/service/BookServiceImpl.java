@@ -134,7 +134,7 @@ public class BookServiceImpl implements BookService {
 		}
 
 		long result = bookRepository.returnBook(bookSeq);
-		bookLogService.addBookLog(BookLogStatus.RETURN, userSeq, bookSeq, book.get().getGroup().getSeq());
+		bookLogService.returnBookLog(userSeq, bookSeq);
 		return result == 1;
 	}
 

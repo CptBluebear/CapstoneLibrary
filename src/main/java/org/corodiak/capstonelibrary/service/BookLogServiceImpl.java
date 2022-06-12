@@ -12,6 +12,7 @@ import org.corodiak.capstonelibrary.type.entity.Group;
 import org.corodiak.capstonelibrary.type.entity.User;
 import org.corodiak.capstonelibrary.type.etc.BookLogStatus;
 import org.corodiak.capstonelibrary.type.vo.BookLogVo;
+import org.corodiak.capstonelibrary.type.vo.BookVo;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class BookLogServiceImpl implements BookLogService {
 	public List<BookLogVo> findAll() {
 		List<BookLog> bookLogList = bookLogRepository.findAll();
 		List<BookLogVo> results = bookLogList.stream()
-			.map(e -> new BookLogVo(e))
+			.map(e -> new BookLogVo.BookLogVoWithUserAndBookAndGroup(e))
 			.collect(Collectors.toList());
 		return results;
 	}
@@ -47,7 +48,7 @@ public class BookLogServiceImpl implements BookLogService {
 	public BookLogVo findBySeq(Long seq) {
 		Optional<BookLog> bookLog = bookLogRepository.findBySeq(seq);
 		if (bookLog.isPresent()) {
-			return new BookLogVo(bookLog.get());
+			return new BookLogVo.BookLogVoWithUserAndBookAndGroup(bookLog.get());
 		}
 		throw new SearchResultNotExistException();
 	}
@@ -56,7 +57,7 @@ public class BookLogServiceImpl implements BookLogService {
 	public List<BookLogVo> findByUserSeq(Long seq) {
 		List<BookLog> bookLogList = bookLogRepository.findByUserSeq(seq);
 		List<BookLogVo> results = bookLogList.stream()
-			.map(e -> new BookLogVo(e))
+			.map(e -> new BookLogVo.BookLogVoWithUserAndBookAndGroup(e))
 			.collect(Collectors.toList());
 		return results;
 	}
@@ -65,7 +66,7 @@ public class BookLogServiceImpl implements BookLogService {
 	public List<BookLogVo> findByBookSeq(Long seq) {
 		List<BookLog> bookLogList = bookLogRepository.findByBookSeq(seq);
 		List<BookLogVo> results = bookLogList.stream()
-			.map(e -> new BookLogVo(e))
+			.map(e -> new BookLogVo.BookLogVoWithUserAndBookAndGroup(e))
 			.collect(Collectors.toList());
 		return results;
 	}
@@ -74,7 +75,7 @@ public class BookLogServiceImpl implements BookLogService {
 	public List<BookLogVo> findByGroupSeq(Long seq) {
 		List<BookLog> bookLogList = bookLogRepository.findByGroupSeq(seq);
 		List<BookLogVo> results = bookLogList.stream()
-			.map(e -> new BookLogVo(e))
+			.map(e -> new BookLogVo.BookLogVoWithUserAndBookAndGroup(e))
 			.collect(Collectors.toList());
 		return results;
 	}
@@ -83,7 +84,16 @@ public class BookLogServiceImpl implements BookLogService {
 	public List<BookLogVo> findByGroupAndUserSeq(Long groupSeq, Long userSeq) {
 		List<BookLog> bookLogList = bookLogRepository.findByGroupAndUserSeq(groupSeq, userSeq);
 		List<BookLogVo> results = bookLogList.stream()
-			.map(e -> new BookLogVo(e))
+			.map(e -> new BookLogVo.BookLogVoWithUserAndBookAndGroup(e))
+			.collect(Collectors.toList());
+		return results;
+	}
+
+	@Override
+	public List<BookVo> findMyBorrow(Long userSeq, Long start, Long display) {
+		List<BookLog> bookLogList = bookLogRepository.findMyBorrow(userSeq, start, display);
+		List<BookVo> results = bookLogList.stream()
+			.map(e -> new BookVo.BookVoWithUserAndGroup(e.getBook()))
 			.collect(Collectors.toList());
 		return results;
 	}
@@ -91,6 +101,15 @@ public class BookLogServiceImpl implements BookLogService {
 	@Override
 	public boolean deleteBySeq(Long seq) {
 		Long result = bookLogRepository.deleteBySeq(seq);
+		return result == 1;
+	}
+
+	@Override
+	public boolean returnBookLog(Long userSeq, Long bookSeq) {
+		Long result = bookLogRepository.returnBookLog(userSeq, bookSeq);
+		if (result == 0) {
+			throw new SearchResultNotExistException();
+		}
 		return result == 1;
 	}
 }

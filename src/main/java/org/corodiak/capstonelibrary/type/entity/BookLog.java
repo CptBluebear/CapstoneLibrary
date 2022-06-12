@@ -31,15 +31,15 @@ public class BookLog extends BaseTimeEntity {
 	@Convert(converter = BookLogStatusConverter.class)
 	private BookLogStatus bookLogStatus;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_seq")
 	private User user;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "book_seq")
 	private Book book;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "group_seq")
 	private Group group;
 

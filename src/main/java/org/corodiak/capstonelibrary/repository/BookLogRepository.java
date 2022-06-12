@@ -25,4 +25,9 @@ public interface BookLogRepository {
 	List<BookLog> findByGroupSeq(Long groupSeq);
 
 	List<BookLog> findByGroupAndUserSeq(Long groupSeq, Long userSeq);
+
+	List<BookLog> findMyBorrow(Long userSeq, Long start, Long display);
+
+	@Transactional
+	Long returnBookLog(Long userSeq, Long bookSeq);
 }

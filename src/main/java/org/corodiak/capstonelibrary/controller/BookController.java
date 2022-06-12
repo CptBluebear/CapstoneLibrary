@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.corodiak.capstonelibrary.auth.util.AuthUtil;
 import org.corodiak.capstonelibrary.service.BookApiService;
+import org.corodiak.capstonelibrary.service.BookLogService;
 import org.corodiak.capstonelibrary.service.BookService;
 import org.corodiak.capstonelibrary.type.dto.BookInfo;
 import org.corodiak.capstonelibrary.type.dto.ResponseModel;
@@ -26,6 +27,7 @@ public class BookController {
 
 	private final BookService bookService;
 	private final BookApiService bookApiService;
+	private final BookLogService bookLogService;
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseModel bookAdd(
@@ -72,6 +74,18 @@ public class BookController {
 	) {
 		long userSeq = AuthUtil.getAuthenticationInfoSeq();
 		List<BookVo> bookList = bookService.findByUserSeq(userSeq, start, display);
+		ResponseModel responseModel = ResponseModel.builder().build();
+		responseModel.addData("bookList", bookList);
+		return responseModel;
+	}
+
+	@RequestMapping(value = "/myborrow", method = RequestMethod.GET)
+	public ResponseModel myBorrowList(
+		@RequestParam(name = "start", required = false, defaultValue = "0") long start,
+		@RequestParam(name = "display", required = false, defaultValue = "20") long display
+	) {
+		long userSeq = AuthUtil.getAuthenticationInfoSeq();
+		List<BookVo> bookList = bookLogService.findMyBorrow(userSeq, start, display);
 		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("bookList", bookList);
 		return responseModel;

@@ -1,5 +1,6 @@
 package org.corodiak.capstonelibrary.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.corodiak.capstonelibrary.type.entity.BookLog;
 import org.corodiak.capstonelibrary.type.entity.QBookLog;
+import org.corodiak.capstonelibrary.type.etc.BookLogStatus;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -81,5 +83,28 @@ public class BookLogRepositoryImpl implements BookLogRepository {
 			.where(qBookLog.group.seq.eq(groupSeq).and(qBookLog.user.seq.eq(userSeq)))
 			.fetch();
 		return results;
+	}
+
+	@Override
+	public List<BookLog> findMyBorrow(Long userSeq, Long start, Long display) {
+		List<BookLog> results = queryFactory.selectFrom(qBookLog)
+			.where(qBookLog.user.seq.eq(userSeq)
+				.and(qBookLog.bookLogStatus.eq(BookLogStatus.BORROW))
+			).offset(start)
+			.limit(display)
+			.fetch();
+		return results;
+	}
+
+	@Override
+	@Transactional
+	public Long returnBookLog(Long userSeq, Long bookSeq) {
+		return queryFactory.update(qBookLog)
+			.set(qBookLog.bookLogStatus, BookLogStatus.RETURN)
+			.set(qBookLog.lastModifiedDate, LocalDateTime.now())
+			.where(qBookLog.user.seq.eq(userSeq)
+				.and(qBookLog.book.seq.eq(bookSeq))
+				.and(qBookLog.bookLogStatus.eq(BookLogStatus.BORROW))
+			).execute();
 	}
 }
