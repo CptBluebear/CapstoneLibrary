@@ -71,7 +71,7 @@ public class Group extends BaseTimeEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
 	private List<Book> bookList = new ArrayList<>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<GroupUser> users = new ArrayList<>();
 
 	@Builder
