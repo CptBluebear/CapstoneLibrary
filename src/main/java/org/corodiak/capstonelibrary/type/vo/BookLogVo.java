@@ -1,5 +1,7 @@
 package org.corodiak.capstonelibrary.type.vo;
 
+import java.time.LocalDateTime;
+
 import org.corodiak.capstonelibrary.type.entity.BookLog;
 import org.corodiak.capstonelibrary.type.etc.BookLogStatus;
 
@@ -12,10 +14,14 @@ public class BookLogVo {
 
 	private Long seq;
 	private BookLogStatus bookLogStatus;
+	private LocalDateTime createdTime;
+	private LocalDateTime lastModifiedTime;
 
 	public BookLogVo(BookLog entity) {
 		this.seq = entity.getSeq();
 		this.bookLogStatus = entity.getBookLogStatus();
+		this.createdTime = entity.getCreatedDate();
+		this.lastModifiedTime = entity.getLastModifiedDate();
 	}
 
 	@Getter
