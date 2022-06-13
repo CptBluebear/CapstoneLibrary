@@ -22,12 +22,12 @@ import lombok.NoArgsConstructor;
 public class GroupUser extends BaseTimeEntity {
 
 	@Id
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "group_seq")
 	private Group group;
 
 	@Id
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_seq")
 	private User user;
 
