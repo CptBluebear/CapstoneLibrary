@@ -201,4 +201,13 @@ public class GroupController {
 		ResponseModel responseModel = ResponseModel.builder().build();
 		return responseModel;
 	}
+
+	@RequestMapping(value = "/myGroup", method = RequestMethod.GET)
+	public ResponseModel myGroup() {
+		Long userSeq = AuthUtil.getAuthenticationInfoSeq();
+		List<GroupVo> groupList = groupUserService.findByUserSeq(userSeq);
+		ResponseModel responseModel = ResponseModel.builder().build();
+		responseModel.addData("groupList", groupList);
+		return responseModel;
+	}
 }

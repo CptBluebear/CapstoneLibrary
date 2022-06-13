@@ -14,4 +14,6 @@ public interface GroupUserRepository {
 	Optional<GroupUser> findByUserSeqAndGroupSeq(Long userSeq, Long groupSeq);
 
 	List<GroupUser> findUserByGroupSeq(Long groupSeq);
+
+	List<GroupUser> findByUserSeq(Long userSeq);
 }

@@ -57,4 +57,12 @@ public class GroupUserRepositoryImpl implements GroupUserRepository {
 			.fetch();
 		return results;
 	}
+
+	@Override
+	public List<GroupUser> findByUserSeq(Long userSeq) {
+		List<GroupUser> results = queryFactory.selectFrom(qGroupUser)
+			.where(qGroupUser.user.seq.eq(userSeq))
+			.fetch();
+		return results;
+	}
 }

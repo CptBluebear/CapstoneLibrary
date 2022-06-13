@@ -2,6 +2,7 @@ package org.corodiak.capstonelibrary.service;
 
 import java.util.List;
 
+import org.corodiak.capstonelibrary.type.vo.GroupVo;
 import org.corodiak.capstonelibrary.type.vo.UserVo;
 
 public interface GroupUserService {
@@ -14,4 +15,6 @@ public interface GroupUserService {
 	List<UserVo> findUserByGroupSeq(Long groupSeq);
 
 	boolean checkUserIsSignedGroup(Long userSeq, Long groupSeq);
+
+	List<GroupVo> findByUserSeq(Long userSeq);
 }

@@ -3,6 +3,7 @@ package org.corodiak.capstonelibrary.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +12,7 @@ import org.corodiak.capstonelibrary.repository.GroupUserRepository;
 import org.corodiak.capstonelibrary.type.entity.Group;
 import org.corodiak.capstonelibrary.type.entity.GroupUser;
 import org.corodiak.capstonelibrary.type.entity.User;
+import org.corodiak.capstonelibrary.type.vo.GroupVo;
 import org.corodiak.capstonelibrary.type.vo.UserVo;
 import org.springframework.stereotype.Service;
 
@@ -63,5 +65,14 @@ public class GroupUserServiceImpl implements GroupUserService {
 	public boolean checkUserIsSignedGroup(Long userSeq, Long groupSeq) {
 		Optional<GroupUser> groupUser = groupUserRepository.findByUserSeqAndGroupSeq(userSeq, groupSeq);
 		return groupUser.isPresent();
+	}
+
+	@Override
+	public List<GroupVo> findByUserSeq(Long userSeq) {
+		List<GroupUser> groupUserList = groupUserRepository.findByUserSeq(userSeq);
+		List<GroupVo> results = groupUserList.stream()
+			.map(e -> new GroupVo(e.getGroup()))
+			.collect(Collectors.toList());
+		return results;
 	}
 }
