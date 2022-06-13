@@ -109,4 +109,15 @@ public class BookRepositoryImpl implements BookRepository {
 		}
 		return results;
 	}
+
+	@Override
+	@Transactional
+	public Long deleteByUserSeqAndGroupSeq(Long userSeq, Long groupSeq) {
+		return queryFactory.delete(qBook)
+			.where(
+				qBook.user.seq.eq(userSeq)
+					.and(qBook.group.seq.eq(groupSeq))
+			)
+			.execute();
+	}
 }

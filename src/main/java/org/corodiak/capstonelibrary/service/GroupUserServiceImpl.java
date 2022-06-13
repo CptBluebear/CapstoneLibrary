@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.corodiak.capstonelibrary.repository.BookRepository;
 import org.corodiak.capstonelibrary.repository.GroupUserRepository;
 import org.corodiak.capstonelibrary.type.entity.Group;
 import org.corodiak.capstonelibrary.type.entity.GroupUser;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class GroupUserServiceImpl implements GroupUserService {
 
 	private final GroupUserRepository groupUserRepository;
+	private final BookRepository bookRepository;
 
 	@Override
 	@Transactional
@@ -35,8 +37,9 @@ public class GroupUserServiceImpl implements GroupUserService {
 	@Override
 	@Transactional
 	public boolean removeGroupUser(Long userSeq, Long groupSeq) {
-		Long result = groupUserRepository.deleteByUserSeqAndGroupSeq(userSeq, groupSeq);
-		return result == 1;
+		Long result1 = groupUserRepository.deleteByUserSeqAndGroupSeq(userSeq, groupSeq);
+		Long result2 = bookRepository.deleteByUserSeqAndGroupSeq(userSeq, groupSeq);
+		return result1 == 1;
 	}
 
 	@Override

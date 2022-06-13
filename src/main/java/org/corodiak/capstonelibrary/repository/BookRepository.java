@@ -24,4 +24,6 @@ public interface BookRepository {
 	Long returnBook(Long seq);
 
 	List<Book> search(String keyword, String category);
+
+	Long deleteByUserSeqAndGroupSeq(Long userSeq, Long groupSeq);
 }
