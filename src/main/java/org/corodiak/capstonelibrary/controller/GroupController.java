@@ -3,6 +3,7 @@ package org.corodiak.capstonelibrary.controller;
 import java.util.List;
 
 import org.corodiak.capstonelibrary.Exception.DuplicatedDataException;
+import org.corodiak.capstonelibrary.Exception.ForbiddenRequestException;
 import org.corodiak.capstonelibrary.Exception.SearchResultNotExistException;
 import org.corodiak.capstonelibrary.auth.util.AuthUtil;
 import org.corodiak.capstonelibrary.service.GroupService;
@@ -177,6 +178,27 @@ public class GroupController {
 		boolean result = groupUserService.checkUserIsSignedGroup(userSeq, groupSeq);
 		ResponseModel responseModel = ResponseModel.builder().build();
 		responseModel.addData("result", result);
+		return responseModel;
+	}
+
+	@RequestMapping(value = "/block", method = RequestMethod.DELETE)
+	public ResponseModel blockUser(
+		@RequestParam("groupSeq") Long groupSeq,
+		@RequestParam("blockUserSeq") Long blockUserSeq
+	) {
+		Long userSeq = AuthUtil.getAuthenticationInfoSeq();
+		if (!groupUserService.findByUserSeqAndGroupSeq(blockUserSeq, groupSeq)) {
+			throw new SearchResultNotExistException();
+		} else {
+			GroupVo.GroupVoWithAdmin group = (GroupVo.GroupVoWithAdmin)groupService.findBySeq(groupSeq);
+			if (group.getAdmin().getSeq() == userSeq) {
+				groupUserService.removeGroupUser(blockUserSeq, groupSeq);
+			} else {
+				throw new ForbiddenRequestException();
+			}
+		}
+
+		ResponseModel responseModel = ResponseModel.builder().build();
 		return responseModel;
 	}
 }
